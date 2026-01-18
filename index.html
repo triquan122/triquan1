@@ -313,37 +313,28 @@
       background: #f8f9fa;
       padding: 30px;
       border-radius: 15px;
-      text-align: center;
+      text-align: left;
       margin-bottom: 20px;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #667eea;
-      letter-spacing: 2px;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .typing-meaning {
       font-size: 1.2rem;
-      color: #28a745;
-      margin-top: 10px;
-      font-weight: normal;
-      font-style: italic;
+      color: #333;
+      line-height: 1.8;
+      min-height: 150px;
+      max-height: 300px;
+      overflow-y: auto;
     }
 
     .typing-input {
       width: 100%;
       padding: 15px 20px;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       border: 3px solid #e0e0e0;
       border-radius: 10px;
       outline: none;
       margin-bottom: 20px;
-      font-family: monospace;
-      letter-spacing: 1px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.8;
+      resize: vertical;
+      min-height: 120px;
     }
 
     .typing-input:focus {
@@ -380,10 +371,6 @@
       color: #666;
     }
 
-    .char-display {
-      display: inline-block;
-    }
-
     .char-correct {
       color: #28a745;
     }
@@ -414,11 +401,11 @@
       }
 
       .typing-target {
-        font-size: 1.5rem;
+        font-size: 1rem;
       }
 
       .typing-input {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
     }
   </style>
@@ -442,7 +429,12 @@
 
       <div class="menu-card" onclick="startTyping()">
         <h2>⌨️ Luyện đánh chữ</h2>
-        <p>Luyện tập đánh máy 50 từ tiếng Anh</p>
+        <p>Luyện tập đánh máy 100 từ tiếng Anh</p>
+      </div>
+
+      <div class="menu-card" onclick="startWordTyping()">
+        <h2>✍️ Luyện từ vựng</h2>
+        <p>Luyện gõ 50 từ và xem nghĩa tiếng Việt</p>
       </div>
     </div>
 
@@ -497,23 +489,23 @@
     <!-- TRANG KẾT QUẢ -->
     <div class="result-page" id="resultPage">
       <h1>🎉 Kết quả</h1>
-      <p class="subtitle">Bạn đã hoàn thành bài kiểm tra!</p>
+      <p class="subtitle">Bạn đã hoàn thành!</p>
 
       <div class="result-score">
         <div class="score-circle">
           <div class="score-number" id="scoreNumber">0</div>
-          <div class="score-label">điểm</div>
+          <div class="score-label" id="scoreLabel">điểm</div>
         </div>
       </div>
 
       <div class="result-stats">
         <div class="result-stat">
           <div class="result-stat-value" id="correctCount">0</div>
-          <div class="result-stat-label">Đúng</div>
+          <div class="result-stat-label" id="correctLabel">Đúng</div>
         </div>
         <div class="result-stat">
           <div class="result-stat-value" id="incorrectCount">0</div>
-          <div class="result-stat-label">Sai</div>
+          <div class="result-stat-label" id="incorrectLabel">Sai</div>
         </div>
       </div>
 
@@ -523,7 +515,7 @@
     <!-- TRANG LUYỆN ĐÁNH CHỮ -->
     <div class="typing-page" id="typingPage">
       <h1>⌨️ Luyện đánh chữ</h1>
-      <div class="progress-info" id="typingProgress">Từ 1/50</div>
+      <div class="progress-info" id="typingProgress">Đã gõ: 0/100 từ</div>
 
       <div class="typing-stats">
         <div class="typing-stat">
@@ -540,15 +532,50 @@
         </div>
       </div>
 
-      <div class="typing-target" id="typingTarget">hello</div>
+      <div class="typing-target" id="typingTarget"></div>
 
-      <input 
-        type="text" 
+      <textarea 
         class="typing-input" 
         id="typingInput" 
         placeholder="Bắt đầu gõ..."
         autocomplete="off"
         spellcheck="false"
+        rows="5"
+      ></textarea>
+
+      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
+    </div>
+
+    <!-- TRANG LUYỆN TỪ VỰNG -->
+    <div class="typing-page" id="wordTypingPage" style="display: none;">
+      <h1>✍️ Luyện từ vựng</h1>
+      <div class="progress-info" id="wordTypingProgress">Từ 1/50</div>
+
+      <div class="typing-stats">
+        <div class="typing-stat">
+          <div class="typing-stat-value" id="wordWpm">0</div>
+          <div class="typing-stat-label">WPM</div>
+        </div>
+        <div class="typing-stat">
+          <div class="typing-stat-value" id="wordAccuracy">100</div>
+          <div class="typing-stat-label">% Chính xác</div>
+        </div>
+        <div class="typing-stat">
+          <div class="typing-stat-value" id="wordTimer">0:00</div>
+          <div class="typing-stat-label">Thời gian</div>
+        </div>
+      </div>
+
+      <div class="typing-target" id="wordTypingTarget" style="font-size: 2rem; font-weight: bold; text-align: center; min-height: 100px;">hello</div>
+
+      <input 
+        type="text" 
+        class="typing-input" 
+        id="wordTypingInput" 
+        placeholder="Bắt đầu gõ từ..."
+        autocomplete="off"
+        spellcheck="false"
+        style="font-size: 1.3rem; text-align: center; min-height: auto;"
       >
 
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
@@ -558,56 +585,355 @@
   <script>
     // Database 50 từ vựng
     const vocabulary = [
-      { english: "hello", vietnamese: ["xin chào", "chào"], type: "interjection" },
-      { english: "goodbye", vietnamese: ["tạm biệt", "chào tạm biệt"], type: "interjection" },
-      { english: "thank you", vietnamese: ["cảm ơn", "cám ơn"], type: "phrase" },
-      { english: "please", vietnamese: ["làm ơn", "xin vui lòng"], type: "adverb" },
-      { english: "sorry", vietnamese: ["xin lỗi", "lỗi"], type: "adjective" },
-      { english: "yes", vietnamese: ["có", "vâng", "dạ"], type: "adverb" },
-      { english: "no", vietnamese: ["không", "ko"], type: "adverb" },
-      { english: "water", vietnamese: ["nước"], type: "noun" },
-      { english: "food", vietnamese: ["thức ăn", "đồ ăn"], type: "noun" },
-      { english: "house", vietnamese: ["nhà", "căn nhà"], type: "noun" },
-      { english: "school", vietnamese: ["trường học", "trường"], type: "noun" },
-      { english: "teacher", vietnamese: ["giáo viên", "thầy giáo", "cô giáo"], type: "noun" },
-      { english: "student", vietnamese: ["học sinh", "sinh viên"], type: "noun" },
-      { english: "book", vietnamese: ["sách", "quyển sách"], type: "noun" },
-      { english: "pen", vietnamese: ["bút", "cây bút"], type: "noun" },
-      { english: "computer", vietnamese: ["máy tính", "máy vi tính"], type: "noun" },
-      { english: "phone", vietnamese: ["điện thoại"], type: "noun" },
-      { english: "car", vietnamese: ["xe hơi", "ô tô"], type: "noun" },
-      { english: "bicycle", vietnamese: ["xe đạp"], type: "noun" },
-      { english: "dog", vietnamese: ["chó", "con chó"], type: "noun" },
-      { english: "cat", vietnamese: ["mèo", "con mèo"], type: "noun" },
-      { english: "tree", vietnamese: ["cây", "cây cối"], type: "noun" },
-      { english: "flower", vietnamese: ["hoa", "bông hoa"], type: "noun" },
-      { english: "sun", vietnamese: ["mặt trời"], type: "noun" },
-      { english: "moon", vietnamese: ["mặt trăng", "trăng"], type: "noun" },
-      { english: "star", vietnamese: ["ngôi sao", "sao"], type: "noun" },
-      { english: "happy", vietnamese: ["vui", "vui vẻ", "hạnh phúc"], type: "adjective" },
-      { english: "sad", vietnamese: ["buồn", "buồn bã"], type: "adjective" },
-      { english: "big", vietnamese: ["to", "lớn"], type: "adjective" },
-      { english: "small", vietnamese: ["nhỏ", "bé"], type: "adjective" },
-      { english: "beautiful", vietnamese: ["đẹp", "xinh đẹp"], type: "adjective" },
-      { english: "ugly", vietnamese: ["xấu", "xấu xí"], type: "adjective" },
-      { english: "good", vietnamese: ["tốt", "tốt đẹp"], type: "adjective" },
-      { english: "bad", vietnamese: ["xấu", "tồi", "tệ"], type: "adjective" },
-      { english: "hot", vietnamese: ["nóng"], type: "adjective" },
-      { english: "cold", vietnamese: ["lạnh"], type: "adjective" },
-      { english: "run", vietnamese: ["chạy"], type: "verb" },
-      { english: "walk", vietnamese: ["đi bộ", "đi"], type: "verb" },
-      { english: "eat", vietnamese: ["ăn"], type: "verb" },
-      { english: "drink", vietnamese: ["uống"], type: "verb" },
-      { english: "sleep", vietnamese: ["ngủ"], type: "verb" },
-      { english: "study", vietnamese: ["học", "học tập"], type: "verb" },
-      { english: "work", vietnamese: ["làm việc", "làm"], type: "verb" },
+      { english: "the", vietnamese: ["cái", "các"], type: "article" },
+      { english: "be", vietnamese: ["là", "thì", "ở"], type: "verb" },
+      { english: "to", vietnamese: ["đến", "tới", "cho"], type: "preposition" },
+      { english: "of", vietnamese: ["của"], type: "preposition" },
+      { english: "and", vietnamese: ["và"], type: "conjunction" },
+      { english: "a", vietnamese: ["một", "cái"], type: "article" },
+      { english: "in", vietnamese: ["trong", "ở"], type: "preposition" },
+      { english: "that", vietnamese: ["cái đó", "rằng"], type: "pronoun" },
+      { english: "have", vietnamese: ["có"], type: "verb" },
+      { english: "I", vietnamese: ["tôi"], type: "pronoun" },
+      { english: "it", vietnamese: ["nó"], type: "pronoun" },
+      { english: "for", vietnamese: ["cho", "vì"], type: "preposition" },
+      { english: "not", vietnamese: ["không"], type: "adverb" },
+      { english: "on", vietnamese: ["trên"], type: "preposition" },
+      { english: "with", vietnamese: ["với"], type: "preposition" },
+      { english: "he", vietnamese: ["anh ấy", "ông ấy"], type: "pronoun" },
+      { english: "as", vietnamese: ["như", "khi"], type: "conjunction" },
+      { english: "you", vietnamese: ["bạn", "anh", "chị"], type: "pronoun" },
+      { english: "do", vietnamese: ["làm"], type: "verb" },
+      { english: "at", vietnamese: ["ở", "tại"], type: "preposition" },
+      { english: "this", vietnamese: ["này", "cái này"], type: "pronoun" },
+      { english: "but", vietnamese: ["nhưng"], type: "conjunction" },
+      { english: "his", vietnamese: ["của anh ấy"], type: "pronoun" },
+      { english: "by", vietnamese: ["bởi", "bằng"], type: "preposition" },
+      { english: "from", vietnamese: ["từ"], type: "preposition" },
+      { english: "they", vietnamese: ["họ"], type: "pronoun" },
+      { english: "we", vietnamese: ["chúng tôi", "chúng ta"], type: "pronoun" },
+      { english: "say", vietnamese: ["nói"], type: "verb" },
+      { english: "her", vietnamese: ["cô ấy", "của cô ấy"], type: "pronoun" },
+      { english: "she", vietnamese: ["cô ấy"], type: "pronoun" },
+      { english: "or", vietnamese: ["hoặc"], type: "conjunction" },
+      { english: "an", vietnamese: ["một"], type: "article" },
+      { english: "will", vietnamese: ["sẽ"], type: "verb" },
+      { english: "my", vietnamese: ["của tôi"], type: "pronoun" },
+      { english: "one", vietnamese: ["một"], type: "number" },
+      { english: "all", vietnamese: ["tất cả"], type: "determiner" },
+      { english: "would", vietnamese: ["sẽ", "muốn"], type: "verb" },
+      { english: "there", vietnamese: ["ở đó", "có"], type: "adverb" },
+      { english: "their", vietnamese: ["của họ"], type: "pronoun" },
+      { english: "what", vietnamese: ["cái gì", "gì"], type: "pronoun" },
+      { english: "so", vietnamese: ["vì vậy", "nên"], type: "adverb" },
+      { english: "up", vietnamese: ["lên"], type: "adverb" },
+      { english: "out", vietnamese: ["ra ngoài", "ngoài"], type: "adverb" },
+      { english: "if", vietnamese: ["nếu"], type: "conjunction" },
+      { english: "about", vietnamese: ["về"], type: "preposition" },
+      { english: "who", vietnamese: ["ai"], type: "pronoun" },
+      { english: "get", vietnamese: ["lấy", "nhận"], type: "verb" },
+      { english: "which", vietnamese: ["cái nào"], type: "pronoun" },
+      { english: "go", vietnamese: ["đi"], type: "verb" },
+      { english: "me", vietnamese: ["tôi"], type: "pronoun" },
+      { english: "when", vietnamese: ["khi"], type: "adverb" },
+      { english: "make", vietnamese: ["làm", "tạo"], type: "verb" },
+      { english: "can", vietnamese: ["có thể"], type: "verb" },
+      { english: "like", vietnamese: ["thích", "như"], type: "verb" },
+      { english: "time", vietnamese: ["thời gian"], type: "noun" },
+      { english: "no", vietnamese: ["không"], type: "determiner" },
+      { english: "just", vietnamese: ["chỉ", "vừa mới"], type: "adverb" },
+      { english: "him", vietnamese: ["anh ấy"], type: "pronoun" },
+      { english: "know", vietnamese: ["biết"], type: "verb" },
+      { english: "take", vietnamese: ["lấy", "mất"], type: "verb" },
+      { english: "people", vietnamese: ["mọi người", "người"], type: "noun" },
+      { english: "into", vietnamese: ["vào trong"], type: "preposition" },
+      { english: "year", vietnamese: ["năm"], type: "noun" },
+      { english: "your", vietnamese: ["của bạn"], type: "pronoun" },
+      { english: "good", vietnamese: ["tốt", "giỏi"], type: "adjective" },
+      { english: "some", vietnamese: ["một số", "một vài"], type: "determiner" },
+      { english: "could", vietnamese: ["có thể"], type: "verb" },
+      { english: "them", vietnamese: ["họ"], type: "pronoun" },
+      { english: "see", vietnamese: ["nhìn", "thấy"], type: "verb" },
+      { english: "other", vietnamese: ["khác"], type: "adjective" },
+      { english: "than", vietnamese: ["hơn"], type: "conjunction" },
+      { english: "then", vietnamese: ["sau đó", "thì"], type: "adverb" },
+      { english: "now", vietnamese: ["bây giờ"], type: "adverb" },
+      { english: "look", vietnamese: ["nhìn"], type: "verb" },
+      { english: "only", vietnamese: ["chỉ", "duy nhất"], type: "adverb" },
+      { english: "come", vietnamese: ["đến"], type: "verb" },
+      { english: "its", vietnamese: ["của nó"], type: "pronoun" },
+      { english: "over", vietnamese: ["qua", "trên"], type: "preposition" },
+      { english: "think", vietnamese: ["nghĩ"], type: "verb" },
+      { english: "also", vietnamese: ["cũng"], type: "adverb" },
+      { english: "back", vietnamese: ["lưng", "trở lại"], type: "noun" },
+      { english: "after", vietnamese: ["sau"], type: "preposition" },
+      { english: "use", vietnamese: ["sử dụng", "dùng"], type: "verb" },
+      { english: "two", vietnamese: ["hai"], type: "number" },
+      { english: "how", vietnamese: ["như thế nào", "làm sao"], type: "adverb" },
+      { english: "our", vietnamese: ["của chúng ta"], type: "pronoun" },
+      { english: "work", vietnamese: ["làm việc", "công việc"], type: "verb" },
+      { english: "first", vietnamese: ["đầu tiên"], type: "adjective" },
+      { english: "well", vietnamese: ["tốt", "giếng"], type: "adverb" },
+      { english: "way", vietnamese: ["cách", "đường"], type: "noun" },
+      { english: "even", vietnamese: ["thậm chí", "bằng phẳng"], type: "adverb" },
+      { english: "new", vietnamese: ["mới"], type: "adjective" },
+      { english: "want", vietnamese: ["muốn"], type: "verb" },
+      { english: "because", vietnamese: ["bởi vì"], type: "conjunction" },
+      { english: "any", vietnamese: ["bất kỳ"], type: "determiner" },
+      { english: "these", vietnamese: ["những cái này"], type: "pronoun" },
+      { english: "give", vietnamese: ["cho", "tặng"], type: "verb" },
+      { english: "day", vietnamese: ["ngày"], type: "noun" },
+      { english: "most", vietnamese: ["hầu hết", "nhất"], type: "adverb" },
+      { english: "us", vietnamese: ["chúng tôi"], type: "pronoun" },
+      { english: "is", vietnamese: ["là"], type: "verb" },
+      { english: "was", vietnamese: ["đã là"], type: "verb" },
+      { english: "are", vietnamese: ["là"], type: "verb" },
+      { english: "been", vietnamese: ["đã được"], type: "verb" },
+      { english: "has", vietnamese: ["có"], type: "verb" },
+      { english: "had", vietnamese: ["đã có"], type: "verb" },
+      { english: "were", vietnamese: ["đã là"], type: "verb" },
+      { english: "said", vietnamese: ["đã nói"], type: "verb" },
+      { english: "did", vietnamese: ["đã làm"], type: "verb" },
+      { english: "get", vietnamese: ["lấy", "nhận được"], type: "verb" },
+      { english: "may", vietnamese: ["có thể"], type: "verb" },
+      { english: "find", vietnamese: ["tìm"], type: "verb" },
+      { english: "thing", vietnamese: ["thứ", "đồ vật"], type: "noun" },
+      { english: "give", vietnamese: ["cho"], type: "verb" },
+      { english: "many", vietnamese: ["nhiều"], type: "determiner" },
+      { english: "must", vietnamese: ["phải"], type: "verb" },
+      { english: "before", vietnamese: ["trước"], type: "preposition" },
+      { english: "great", vietnamese: ["tuyệt vời", "vĩ đại"], type: "adjective" },
+      { english: "through", vietnamese: ["qua", "xuyên qua"], type: "preposition" },
+      { english: "man", vietnamese: ["đàn ông", "người đàn ông"], type: "noun" },
+      { english: "here", vietnamese: ["ở đây"], type: "adverb" },
+      { english: "where", vietnamese: ["ở đâu"], type: "adverb" },
+      { english: "help", vietnamese: ["giúp đỡ"], type: "verb" },
+      { english: "much", vietnamese: ["nhiều"], type: "determiner" },
+      { english: "should", vietnamese: ["nên"], type: "verb" },
+      { english: "old", vietnamese: ["cũ", "già"], type: "adjective" },
+      { english: "tell", vietnamese: ["nói", "kể"], type: "verb" },
+      { english: "boy", vietnamese: ["con trai", "cậu bé"], type: "noun" },
+      { english: "follow", vietnamese: ["theo"], type: "verb" },
+      { english: "came", vietnamese: ["đã đến"], type: "verb" },
+      { english: "show", vietnamese: ["cho xem", "hiển thị"], type: "verb" },
+      { english: "still", vietnamese: ["vẫn"], type: "adverb" },
+      { english: "large", vietnamese: ["lớn"], type: "adjective" },
+      { english: "ask", vietnamese: ["hỏi"], type: "verb" },
+      { english: "turn", vietnamese: ["quay", "lượt"], type: "verb" },
+      { english: "put", vietnamese: ["đặt"], type: "verb" },
+      { english: "end", vietnamese: ["kết thúc", "cuối"], type: "noun" },
+      { english: "why", vietnamese: ["tại sao"], type: "adverb" },
+      { english: "kind", vietnamese: ["tử tế", "loại"], type: "adjective" },
+      { english: "hand", vietnamese: ["tay", "bàn tay"], type: "noun" },
+      { english: "picture", vietnamese: ["hình ảnh", "bức tranh"], type: "noun" },
+      { english: "change", vietnamese: ["thay đổi"], type: "verb" },
+      { english: "off", vietnamese: ["tắt", "rời"], type: "adverb" },
       { english: "play", vietnamese: ["chơi"], type: "verb" },
-      { english: "read", vietnamese: ["đọc"], type: "verb" },
-      { english: "write", vietnamese: ["viết"], type: "verb" },
-      { english: "speak", vietnamese: ["nói"], type: "verb" },
-      { english: "listen", vietnamese: ["nghe", "lắng nghe"], type: "verb" },
-      { english: "love", vietnamese: ["yêu", "yêu thương"], type: "verb" },
-      { english: "hate", vietnamese: ["ghét", "căm ghét"], type: "verb" }
+      { english: "spell", vietnamese: ["đánh vần"], type: "verb" },
+      { english: "air", vietnamese: ["không khí"], type: "noun" },
+      { english: "away", vietnamese: ["đi xa"], type: "adverb" },
+      { english: "animal", vietnamese: ["động vật"], type: "noun" },
+      { english: "house", vietnamese: ["nhà"], type: "noun" },
+      { english: "point", vietnamese: ["điểm", "chỉ"], type: "noun" },
+      { english: "page", vietnamese: ["trang"], type: "noun" },
+      { english: "letter", vietnamese: ["thư", "chữ cái"], type: "noun" },
+      { english: "mother", vietnamese: ["mẹ"], type: "noun" },
+      { english: "answer", vietnamese: ["trả lời", "câu trả lời"], type: "verb" },
+      { english: "found", vietnamese: ["đã tìm thấy"], type: "verb" },
+      { english: "study", vietnamese: ["học"], type: "verb" },
+      { english: "learn", vietnamese: ["học"], type: "verb" },
+      { english: "world", vietnamese: ["thế giới"], type: "noun" },
+      { english: "near", vietnamese: ["gần"], type: "preposition" },
+      { english: "add", vietnamese: ["thêm"], type: "verb" },
+      { english: "food", vietnamese: ["thức ăn"], type: "noun" },
+      { english: "between", vietnamese: ["giữa"], type: "preposition" },
+      { english: "own", vietnamese: ["sở hữu", "riêng"], type: "adjective" },
+      { english: "below", vietnamese: ["dưới"], type: "preposition" },
+      { english: "country", vietnamese: ["đất nước"], type: "noun" },
+      { english: "plant", vietnamese: ["cây", "trồng"], type: "noun" },
+      { english: "last", vietnamese: ["cuối cùng"], type: "adjective" },
+      { english: "school", vietnamese: ["trường học"], type: "noun" },
+      { english: "father", vietnamese: ["bố"], type: "noun" },
+      { english: "keep", vietnamese: ["giữ"], type: "verb" },
+      { english: "tree", vietnamese: ["cây"], type: "noun" },
+      { english: "never", vietnamese: ["không bao giờ"], type: "adverb" },
+      { english: "start", vietnamese: ["bắt đầu"], type: "verb" },
+      { english: "city", vietnamese: ["thành phố"], type: "noun" },
+      { english: "earth", vietnamese: ["trái đất"], type: "noun" },
+      { english: "eye", vietnamese: ["mắt"], type: "noun" },
+      { english: "light", vietnamese: ["ánh sáng", "nhẹ"], type: "noun" },
+      { english: "thought", vietnamese: ["nghĩ", "suy nghĩ"], type: "noun" },
+      { english: "head", vietnamese: ["đầu"], type: "noun" },
+      { english: "under", vietnamese: ["dưới"], type: "preposition" },
+      { english: "story", vietnamese: ["câu chuyện"], type: "noun" },
+      { english: "saw", vietnamese: ["đã thấy", "cưa"], type: "verb" },
+      { english: "left", vietnamese: ["trái", "đã rời"], type: "adjective" },
+      { english: "don't", vietnamese: ["không"], type: "verb" },
+      { english: "few", vietnamese: ["ít"], type: "determiner" },
+      { english: "while", vietnamese: ["trong khi"], type: "conjunction" },
+      { english: "along", vietnamese: ["dọc theo"], type: "preposition" },
+      { english: "might", vietnamese: ["có thể"], type: "verb" },
+      { english: "close", vietnamese: ["đóng", "gần"], type: "verb" },
+      { english: "something", vietnamese: ["cái gì đó"], type: "pronoun" },
+      { english: "seem", vietnamese: ["có vẻ"], type: "verb" },
+      { english: "next", vietnamese: ["kế tiếp"], type: "adjective" },
+      { english: "hard", vietnamese: ["cứng", "khó"], type: "adjective" },
+      { english: "open", vietnamese: ["mở"], type: "verb" },
+      { english: "example", vietnamese: ["ví dụ"], type: "noun" },
+      { english: "begin", vietnamese: ["bắt đầu"], type: "verb" },
+      { english: "life", vietnamese: ["cuộc sống"], type: "noun" },
+      { english: "always", vietnamese: ["luôn luôn"], type: "adverb" },
+      { english: "those", vietnamese: ["những cái đó"], type: "pronoun" },
+      { english: "both", vietnamese: ["cả hai"], type: "determiner" },
+      { english: "paper", vietnamese: ["giấy"], type: "noun" },
+      { english: "together", vietnamese: ["cùng nhau"], type: "adverb" },
+      { english: "got", vietnamese: ["đã nhận"], type: "verb" },
+      { english: "group", vietnamese: ["nhóm"], type: "noun" },
+      { english: "often", vietnamese: ["thường xuyên"], type: "adverb" },
+      { english: "run", vietnamese: ["chạy"], type: "verb" },
+      { english: "important", vietnamese: ["quan trọng"], type: "adjective" },
+      { english: "until", vietnamese: ["cho đến khi"], type: "conjunction" },
+      { english: "children", vietnamese: ["trẻ em"], type: "noun" },
+      { english: "side", vietnamese: ["bên", "mặt"], type: "noun" },
+      { english: "feet", vietnamese: ["bàn chân"], type: "noun" },
+      { english: "car", vietnamese: ["xe hơi"], type: "noun" },
+      { english: "mile", vietnamese: ["dặm"], type: "noun" },
+      { english: "night", vietnamese: ["đêm"], type: "noun" },
+      { english: "walk", vietnamese: ["đi bộ"], type: "verb" },
+      { english: "white", vietnamese: ["trắng"], type: "adjective" },
+      { english: "sea", vietnamese: ["biển"], type: "noun" },
+      { english: "began", vietnamese: ["đã bắt đầu"], type: "verb" },
+      { english: "grow", vietnamese: ["phát triển"], type: "verb" },
+      { english: "took", vietnamese: ["đã lấy"], type: "verb" },
+      { english: "river", vietnamese: ["sông"], type: "noun" },
+      { english: "four", vietnamese: ["bốn"], type: "number" },
+      { english: "carry", vietnamese: ["mang"], type: "verb" },
+      { english: "state", vietnamese: ["tiểu bang", "trạng thái"], type: "noun" },
+      { english: "once", vietnamese: ["một lần"], type: "adverb" },
+      { english: "book", vietnamese: ["sách"], type: "noun" },
+      { english: "hear", vietnamese: ["nghe"], type: "verb" },
+      { english: "stop", vietnamese: ["dừng"], type: "verb" },
+      { english: "without", vietnamese: ["không có"], type: "preposition" },
+      { english: "second", vietnamese: ["thứ hai", "giây"], type: "adjective" },
+      { english: "later", vietnamese: ["sau"], type: "adverb" },
+      { english: "miss", vietnamese: ["nhớ", "bỏ lỡ"], type: "verb" },
+      { english: "idea", vietnamese: ["ý tưởng"], type: "noun" },
+      { english: "enough", vietnamese: ["đủ"], type: "determiner" },
+      { english: "eat", vietnamese: ["ăn"], type: "verb" },
+      { english: "face", vietnamese: ["mặt"], type: "noun" },
+      { english: "watch", vietnamese: ["xem", "đồng hồ"], type: "verb" },
+      { english: "far", vietnamese: ["xa"], type: "adverb" },
+      { english: "Indian", vietnamese: ["Ấn Độ"], type: "adjective" },
+      { english: "real", vietnamese: ["thực"], type: "adjective" },
+      { english: "almost", vietnamese: ["hầu như"], type: "adverb" },
+      { english: "let", vietnamese: ["để cho"], type: "verb" },
+      { english: "above", vietnamese: ["trên"], type: "preposition" },
+      { english: "girl", vietnamese: ["con gái"], type: "noun" },
+      { english: "sometimes", vietnamese: ["đôi khi"], type: "adverb" },
+      { english: "mountain", vietnamese: ["núi"], type: "noun" },
+      { english: "cut", vietnamese: ["cắt"], type: "verb" },
+      { english: "young", vietnamese: ["trẻ"], type: "adjective" },
+      { english: "talk", vietnamese: ["nói chuyện"], type: "verb" },
+      { english: "soon", vietnamese: ["sớm"], type: "adverb" },
+      { english: "list", vietnamese: ["danh sách"], type: "noun" },
+      { english: "song", vietnamese: ["bài hát"], type: "noun" },
+      { english: "being", vietnamese: ["sinh vật", "đang là"], type: "noun" },
+      { english: "leave", vietnamese: ["rời", "nghỉ"], type: "verb" },
+      { english: "family", vietnamese: ["gia đình"], type: "noun" },
+      { english: "it's", vietnamese: ["nó là"], type: "contraction" },
+      { english: "morning", vietnamese: ["buổi sáng"], type: "noun" },
+      { english: "black", vietnamese: ["đen"], type: "adjective" },
+      { english: "short", vietnamese: ["ngắn"], type: "adjective" },
+      { english: "numeral", vietnamese: ["số"], type: "noun" },
+      { english: "class", vietnamese: ["lớp"], type: "noun" },
+      { english: "wind", vietnamese: ["gió"], type: "noun" },
+      { english: "question", vietnamese: ["câu hỏi"], type: "noun" },
+      { english: "happen", vietnamese: ["xảy ra"], type: "verb" },
+      { english: "complete", vietnamese: ["hoàn thành"], type: "verb" },
+      { english: "ship", vietnamese: ["tàu"], type: "noun" },
+      { english: "area", vietnamese: ["khu vực"], type: "noun" },
+      { english: "half", vietnamese: ["một nửa"], type: "noun" },
+      { english: "rock", vietnamese: ["đá"], type: "noun" },
+      { english: "order", vietnamese: ["thứ tự", "đặt hàng"], type: "noun" },
+      { english: "fire", vietnamese: ["lửa"], type: "noun" },
+      { english: "south", vietnamese: ["nam"], type: "noun" },
+      { english: "problem", vietnamese: ["vấn đề"], type: "noun" },
+      { english: "piece", vietnamese: ["mảnh"], type: "noun" },
+      { english: "told", vietnamese: ["đã nói"], type: "verb" },
+      { english: "knew", vietnamese: ["đã biết"], type: "verb" },
+      { english: "pass", vietnamese: ["vượt qua"], type: "verb" },
+      { english: "since", vietnamese: ["từ khi"], type: "preposition" },
+      { english: "top", vietnamese: ["đỉnh"], type: "noun" },
+      { english: "whole", vietnamese: ["toàn bộ"], type: "adjective" },
+      { english: "king", vietnamese: ["vua"], type: "noun" },
+      { english: "street", vietnamese: ["đường phố"], type: "noun" },
+      { english: "inch", vietnamese: ["inch"], type: "noun" },
+      { english: "multiply", vietnamese: ["nhân"], type: "verb" },
+      { english: "nothing", vietnamese: ["không gì"], type: "pronoun" },
+      { english: "course", vietnamese: ["khóa học"], type: "noun" },
+      { english: "stay", vietnamese: ["ở lại"], type: "verb" },
+      { english: "wheel", vietnamese: ["bánh xe"], type: "noun" },
+      { english: "full", vietnamese: ["đầy"], type: "adjective" },
+      { english: "force", vietnamese: ["sức mạnh"], type: "noun" },
+      { english: "blue", vietnamese: ["xanh dương"], type: "adjective" },
+      { english: "object", vietnamese: ["đối tượng"], type: "noun" },
+      { english: "decide", vietnamese: ["quyết định"], type: "verb" },
+      { english: "surface", vietnamese: ["bề mặt"], type: "noun" },
+      { english: "deep", vietnamese: ["sâu"], type: "adjective" },
+      { english: "moon", vietnamese: ["mặt trăng"], type: "noun" },
+      { english: "island", vietnamese: ["đảo"], type: "noun" },
+      { english: "foot", vietnamese: ["bàn chân"], type: "noun" },
+      { english: "system", vietnamese: ["hệ thống"], type: "noun" },
+      { english: "busy", vietnamese: ["bận"], type: "adjective" },
+      { english: "test", vietnamese: ["bài kiểm tra"], type: "noun" },
+      { english: "record", vietnamese: ["ghi", "kỷ lục"], type: "verb" },
+      { english: "boat", vietnamese: ["thuyền"], type: "noun" },
+      { english: "common", vietnamese: ["phổ biến"], type: "adjective" },
+      { english: "gold", vietnamese: ["vàng"], type: "noun" },
+      { english: "possible", vietnamese: ["có thể"], type: "adjective" },
+      { english: "plane", vietnamese: ["máy bay"], type: "noun" },
+      { english: "stead", vietnamese: ["thay thế"], type: "noun" },
+      { english: "dry", vietnamese: ["khô"], type: "adjective" },
+      { english: "wonder", vietnamese: ["tự hỏi"], type: "verb" },
+      { english: "laugh", vietnamese: ["cười"], type: "verb" },
+      { english: "thousand", vietnamese: ["nghìn"], type: "number" },
+      { english: "ago", vietnamese: ["trước đây"], type: "adverb" },
+      { english: "ran", vietnamese: ["đã chạy"], type: "verb" },
+      { english: "check", vietnamese: ["kiểm tra"], type: "verb" },
+      { english: "game", vietnamese: ["trò chơi"], type: "noun" },
+      { english: "shape", vietnamese: ["hình dạng"], type: "noun" },
+      { english: "equate", vietnamese: ["đánh đồng"], type: "verb" },
+      { english: "hot", vietnamese: ["nóng"], type: "adjective" },
+      { english: "miss", vietnamese: ["nhớ"], type: "verb" },
+      { english: "brought", vietnamese: ["đã mang"], type: "verb" },
+      { english: "heat", vietnamese: ["nhiệt"], type: "noun" },
+      { english: "snow", vietnamese: ["tuyết"], type: "noun" },
+      { english: "tire", vietnamese: ["lốp xe", "mệt"], type: "noun" },
+      { english: "bring", vietnamese: ["mang"], type: "verb" },
+      { english: "yes", vietnamese: ["vâng", "có"], type: "interjection" },
+      { english: "distant", vietnamese: ["xa"], type: "adjective" },
+      { english: "fill", vietnamese: ["đổ đầy"], type: "verb" },
+      { english: "east", vietnamese: ["đông"], type: "noun" },
+      { english: "paint", vietnamese: ["sơn"], type: "verb" },
+      { english: "language", vietnamese: ["ngôn ngữ"], type: "noun" },
+      { english: "among", vietnamese: ["trong số"], type: "preposition" },
+      { english: "unit", vietnamese: ["đơn vị"], type: "noun" },
+      { english: "power", vietnamese: ["quyền lực"], type: "noun" },
+      { english: "town", vietnamese: ["thị trấn"], type: "noun" },
+      { english: "fine", vietnamese: ["tốt", "tiền phạt"], type: "adjective" },
+      { english: "certain", vietnamese: ["chắc chắn"], type: "adjective" },
+      { english: "fly", vietnamese: ["bay"], type: "verb" },
+      { english: "fall", vietnamese: ["rơi"], type: "verb" },
+      { english: "lead", vietnamese: ["dẫn"], type: "verb" },
+      { english: "cry", vietnamese: ["khóc"], type: "verb" },
+      { english: "dark", vietnamese: ["tối"], type: "adjective" },
+      { english: "machine", vietnamese: ["máy móc"], type: "noun" },
+      { english: "note", vietnamese: ["ghi chú"], type: "noun" },
+      { english: "wait", vietnamese: ["đợi"], type: "verb" },
+      { english: "plan", vietnamese: ["kế hoạch"], type: "noun" },
+      { english: "figure", vietnamese: ["con số"], type: "noun" },
+      { english: "star", vietnamese: ["ngôi sao"], type: "noun" },
+      { english: "box", vietnamese: ["hộp"], type: "noun" }
     ];
 
     let quizWords = [];
@@ -616,13 +942,22 @@
     let incorrectAnswers = 0;
 
     // Typing variables
-    let typingWords = [];
-    let typingIndex = 0;
+    let typingText = '';
     let typingStartTime = null;
     let typingTimer = null;
     let totalTypingTime = 0;
     let correctChars = 0;
     let totalChars = 0;
+    let wordsTyped = 0;
+
+    // Word typing variables
+    let wordTypingWords = [];
+    let wordTypingIndex = 0;
+    let wordTypingStartTime = null;
+    let wordTypingTimer = null;
+    let wordTotalTime = 0;
+    let wordCorrectChars = 0;
+    let wordTotalChars = 0;
 
     function normalizeText(text) {
       return text.toLowerCase().trim().replace(/\s+/g, ' ');
@@ -634,11 +969,17 @@
       document.getElementById('dictionaryPage').style.display = 'none';
       document.getElementById('resultPage').style.display = 'none';
       document.getElementById('typingPage').style.display = 'none';
+      document.getElementById('wordTypingPage').style.display = 'none';
       
       // Reset typing nếu đang chạy
       if (typingTimer) {
         clearInterval(typingTimer);
         typingTimer = null;
+      }
+      
+      if (wordTypingTimer) {
+        clearInterval(wordTypingTimer);
+        wordTypingTimer = null;
       }
     }
 
@@ -723,8 +1064,11 @@
       document.getElementById('resultPage').style.display = 'block';
       
       document.getElementById('scoreNumber').textContent = score;
+      document.getElementById('scoreLabel').textContent = 'điểm';
       document.getElementById('correctCount').textContent = correctAnswers;
+      document.getElementById('correctLabel').textContent = 'Đúng';
       document.getElementById('incorrectCount').textContent = incorrectAnswers;
+      document.getElementById('incorrectLabel').textContent = 'Sai';
     }
 
     function showDictionary() {
@@ -757,34 +1101,152 @@
 
     // Typing Game Functions
     function startTyping() {
-      typingWords = [...vocabulary];
-      typingIndex = 0;
+      // Tạo đoạn văn 100 từ ngẫu nhiên
+      const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
+      typingText = shuffled.slice(0, 100).map(w => w.english).join(' ');
+      
       typingStartTime = null;
       totalTypingTime = 0;
       correctChars = 0;
       totalChars = 0;
+      wordsTyped = 0;
 
       document.getElementById('homePage').style.display = 'none';
       document.getElementById('typingPage').style.display = 'block';
       
-      displayTypingWord();
+      displayTypingText();
       document.getElementById('typingInput').focus();
     }
 
-    function displayTypingWord() {
-      const word = typingWords[typingIndex];
+    function displayTypingText() {
       const targetDiv = document.getElementById('typingTarget');
-      targetDiv.innerHTML = `<div>${word.english}</div>`;
-      document.getElementById('typingProgress').textContent = `Từ ${typingIndex + 1}/50`;
+      targetDiv.textContent = typingText;
+      document.getElementById('typingProgress').textContent = 'Đã gõ: 0/100 từ';
       document.getElementById('typingInput').value = '';
       document.getElementById('typingInput').classList.remove('error');
     }
 
     function updateTypingDisplay() {
-      const word = typingWords[typingIndex];
-      const target = word.english;
       const input = document.getElementById('typingInput').value;
       const targetDiv = document.getElementById('typingTarget');
+      
+      let html = '';
+      let hasError = false;
+      
+      for (let i = 0; i < typingText.length; i++) {
+        if (i < input.length) {
+          if (input[i] === typingText[i]) {
+            html += `<span class="char-correct">${typingText[i]}</span>`;
+            if (i === input.length - 1) {
+              totalChars++;
+              correctChars++;
+            }
+          } else {
+            html += `<span class="char-incorrect">${typingText[i]}</span>`;
+            hasError = true;
+            if (i === input.length - 1) {
+              totalChars++;
+            }
+          }
+        } else if (i === input.length) {
+          html += `<span class="char-current">${typingText[i]}</span>`;
+        } else {
+          html += typingText[i];
+        }
+      }
+      
+      targetDiv.innerHTML = html;
+      
+      // Đổi màu input nếu sai
+      if (hasError) {
+        document.getElementById('typingInput').classList.add('error');
+      } else {
+        document.getElementById('typingInput').classList.remove('error');
+      }
+      
+      // Đếm số từ đã gõ
+      wordsTyped = input.trim().split(/\s+/).length;
+      if (input.trim() === '') wordsTyped = 0;
+      document.getElementById('typingProgress').textContent = `Đã gõ: ${wordsTyped}/100 từ`;
+      
+      // Kiểm tra hoàn thành
+      if (input === typingText) {
+        showTypingResult();
+      }
+    }
+
+    function startTimer() {
+      if (!typingStartTime) {
+        typingStartTime = Date.now();
+        typingTimer = setInterval(updateTimer, 100);
+      }
+    }
+
+    function updateTimer() {
+      const elapsed = (Date.now() - typingStartTime) / 1000;
+      totalTypingTime = elapsed;
+      
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = Math.floor(elapsed % 60);
+      document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      // Tính WPM
+      const wpm = Math.round((wordsTyped / elapsed) * 60);
+      document.getElementById('wpm').textContent = wpm || 0;
+      
+      // Tính accuracy
+      const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+      document.getElementById('accuracy').textContent = accuracy;
+    }
+
+    function showTypingResult() {
+      clearInterval(typingTimer);
+      
+      const minutes = (totalTypingTime / 60).toFixed(2);
+      const wpm = Math.round((100 / totalTypingTime) * 60);
+      const accuracy = Math.round((correctChars / totalChars) * 100);
+      
+      document.getElementById('typingPage').style.display = 'none';
+      document.getElementById('resultPage').style.display = 'block';
+      
+      document.getElementById('scoreNumber').textContent = minutes;
+      document.getElementById('scoreLabel').textContent = 'phút';
+      document.getElementById('correctCount').textContent = wpm;
+      document.getElementById('correctLabel').textContent = 'WPM';
+      document.getElementById('incorrectCount').textContent = accuracy + '%';
+      document.getElementById('incorrectLabel').textContent = 'Chính xác';
+    }
+
+    // Word Typing Functions
+    function startWordTyping() {
+      wordTypingWords = [...vocabulary].sort(() => Math.random() - 0.5).slice(0, 50);
+      wordTypingIndex = 0;
+      wordTypingStartTime = null;
+      wordTotalTime = 0;
+      wordCorrectChars = 0;
+      wordTotalChars = 0;
+
+      document.getElementById('homePage').style.display = 'none';
+      document.getElementById('wordTypingPage').style.display = 'block';
+      
+      displayWordTyping();
+      document.getElementById('wordTypingInput').focus();
+    }
+
+    function displayWordTyping() {
+      const word = wordTypingWords[wordTypingIndex];
+      const targetDiv = document.getElementById('wordTypingTarget');
+      targetDiv.innerHTML = `<div>${word.english}</div>`;
+      document.getElementById('wordTypingProgress').textContent = `Từ ${wordTypingIndex + 1}/50`;
+      document.getElementById('wordTypingInput').value = '';
+      document.getElementById('wordTypingInput').classList.remove('error');
+    }
+
+    function updateWordTypingDisplay() {
+      const word = wordTypingWords[wordTypingIndex];
+      const target = word.english;
+      const input = document.getElementById('wordTypingInput').value;
+      const targetDiv = document.getElementById('wordTypingTarget');
       
       let html = '<div>';
       let hasError = false;
@@ -809,78 +1271,78 @@
       
       // Đổi màu input nếu sai
       if (hasError) {
-        document.getElementById('typingInput').classList.add('error');
+        document.getElementById('wordTypingInput').classList.add('error');
       } else {
-        document.getElementById('typingInput').classList.remove('error');
+        document.getElementById('wordTypingInput').classList.remove('error');
       }
       
       // Kiểm tra hoàn thành từ
       if (input === target) {
         // Hiển thị nghĩa
         targetDiv.innerHTML = `
-          <div>${target}</div>
-          <div class="typing-meaning">${word.vietnamese.join(', ')}</div>
+          <div style="font-size: 2rem; color: #28a745;">${target}</div>
+          <div style="font-size: 1.2rem; color: #667eea; margin-top: 10px; font-weight: normal; font-style: italic;">${word.vietnamese.join(', ')}</div>
         `;
         
         // Tính accuracy
         for (let i = 0; i < input.length; i++) {
-          totalChars++;
-          if (input[i] === target[i]) correctChars++;
+          wordTotalChars++;
+          if (input[i] === target[i]) wordCorrectChars++;
         }
         
-        typingIndex++;
+        wordTypingIndex++;
         
-        // Chờ 1 giây rồi chuyển từ tiếp theo
+        // Chờ 1.5 giây rồi chuyển từ tiếp theo
         setTimeout(() => {
-          if (typingIndex >= 50) {
-            showTypingResult();
+          if (wordTypingIndex >= 50) {
+            showWordTypingResult();
           } else {
-            displayTypingWord();
+            displayWordTyping();
           }
-        }, 1000);
+        }, 1500);
       }
     }
 
-    function startTimer() {
-      if (!typingStartTime) {
-        typingStartTime = Date.now();
-        typingTimer = setInterval(updateTimer, 100);
+    function startWordTimer() {
+      if (!wordTypingStartTime) {
+        wordTypingStartTime = Date.now();
+        wordTypingTimer = setInterval(updateWordTimer, 100);
       }
     }
 
-    function updateTimer() {
-      const elapsed = (Date.now() - typingStartTime) / 1000;
-      totalTypingTime = elapsed;
+    function updateWordTimer() {
+      const elapsed = (Date.now() - wordTypingStartTime) / 1000;
+      wordTotalTime = elapsed;
       
       const minutes = Math.floor(elapsed / 60);
       const seconds = Math.floor(elapsed % 60);
-      document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      document.getElementById('wordTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
       
       // Tính WPM
-      const wordsTyped = typingIndex;
-      const wpm = Math.round((wordsTyped / elapsed) * 60);
-      document.getElementById('wpm').textContent = wpm || 0;
+      const wpm = Math.round((wordTypingIndex / elapsed) * 60);
+      document.getElementById('wordWpm').textContent = wpm || 0;
       
       // Tính accuracy
-      const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
-      document.getElementById('accuracy').textContent = accuracy;
+      const accuracy = wordTotalChars > 0 ? Math.round((wordCorrectChars / wordTotalChars) * 100) : 100;
+      document.getElementById('wordAccuracy').textContent = accuracy;
     }
 
-    function showTypingResult() {
-      clearInterval(typingTimer);
+    function showWordTypingResult() {
+      clearInterval(wordTypingTimer);
       
-      const wpm = Math.round((50 / totalTypingTime) * 60);
-      const accuracy = Math.round((correctChars / totalChars) * 100);
+      const minutes = (wordTotalTime / 60).toFixed(2);
+      const wpm = Math.round((50 / wordTotalTime) * 60);
+      const accuracy = Math.round((wordCorrectChars / wordTotalChars) * 100);
       
-      document.getElementById('typingPage').style.display = 'none';
+      document.getElementById('wordTypingPage').style.display = 'none';
       document.getElementById('resultPage').style.display = 'block';
       
-      document.getElementById('scoreNumber').textContent = wpm;
-      document.querySelector('.score-label').textContent = 'WPM';
-      document.getElementById('correctCount').textContent = accuracy + '%';
-      document.querySelector('#correctCount').nextElementSibling.textContent = 'Chính xác';
-      document.getElementById('incorrectCount').textContent = Math.floor(totalTypingTime) + 's';
-      document.querySelector('#incorrectCount').nextElementSibling.textContent = 'Thời gian';
+      document.getElementById('scoreNumber').textContent = minutes;
+      document.getElementById('scoreLabel').textContent = 'phút';
+      document.getElementById('correctCount').textContent = wpm;
+      document.getElementById('correctLabel').textContent = 'WPM';
+      document.getElementById('incorrectCount').textContent = accuracy + '%';
+      document.getElementById('incorrectLabel').textContent = 'Chính xác';
     }
 
     // Event listeners
@@ -890,6 +1352,14 @@
         typingInput.addEventListener('input', function() {
           startTimer();
           updateTypingDisplay();
+        });
+      }
+      
+      const wordTypingInput = document.getElementById('wordTypingInput');
+      if (wordTypingInput) {
+        wordTypingInput.addEventListener('input', function() {
+          startWordTimer();
+          updateWordTypingDisplay();
         });
       }
       
