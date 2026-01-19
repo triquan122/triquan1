@@ -516,92 +516,51 @@
 </head>
 <body>
   <div class="container">
-    <!-- TRANG CHỦ -->
     <div class="home-page" id="homePage">
-      <h1>🎯 TRÍ QUÂN ĐẸP TRAI  </h1>
-      <p class="subtitle">Luyện từ</p>
-
-      <div class="menu-card" onclick="startQuiz()">
-        <h2>📝 Kiểm tra 50 từ</h2>
-        <p>Kiểm tra kiến thức của TRÍ QUÂN ĐẸP TRAI với 50 từ ngẫu nhiên</p>
-      </div>
-
-      <div class="menu-card" onclick="showDictionary()">
-        <h2>📚 Từ điển</h2>
-        <p>Tra cứu và học từ vựng</p>
-      </div>
-
-      <div class="menu-card" onclick="startTyping()">
-        <h2>⌨️ Luyện đánh chữ</h2>
-        <p>Luyện đánh máy 100 từ </p>
-      </div>
-
-      <div class="menu-card" onclick="startWordTyping()">
-        <h2>✍️ Luyện từ vựng</h2>
-        <p>Luyện gõ từ </p>
-      </div>
+      <h1>🎯 TRÍ QUÂN ĐẸP TRAI</h1>
+      <p class="subtitle">Luyện từ vựng tiếng Anh</p>
+      <div class="menu-card" onclick="startQuiz()"><h2>📝 Kiểm tra 50 từ</h2><p>Kiểm tra kiến thức với 50 từ ngẫu nhiên</p></div>
+      <div class="menu-card" onclick="showDictionary()"><h2>📚 Từ điển</h2><p>Tra cứu và học từ vựng</p></div>
+      <div class="menu-card" onclick="startTyping()"><h2>⌨️ Luyện đánh chữ</h2><p>Luyện đánh máy 100 từ</p></div>
+      <div class="menu-card" onclick="startWordTyping()"><h2>✍️ Luyện từ vựng</h2><p>Luyện gõ từ tiếng Anh</p></div>
+      <div class="menu-card" onclick="startShootingGame()"><h2>🎯 Bắn từ vựng</h2><p>Bắn trúng nghĩa đúng trước khi từ rơi xuống!</p></div>
     </div>
 
-    <!-- TRANG KIỂM TRA -->
     <div class="quiz-page" id="quizPage">
       <h1>📝 Kiểm tra</h1>
       <div class="progress-info" id="progressInfo">Câu 1/50</div>
-
       <div class="word-card">
         <div class="english-word" id="englishWord">HELLO</div>
         <div class="word-type" id="wordType">(noun)</div>
       </div>
-
-      <input 
-        type="text" 
-        class="answer-input" 
-        id="answerInput" 
-        placeholder="Nhập nghĩa tiếng Việt..."
-        autocomplete="off"
-      >
-
+      <input type="text" class="answer-input" id="answerInput" placeholder="Nhập nghĩa tiếng Việt..." autocomplete="off">
       <div class="feedback" id="feedback"></div>
-
       <div class="button-group">
         <button class="btn-primary" onclick="checkAnswer()">✓ Kiểm tra</button>
         <button class="btn-secondary" onclick="skipWord()">→ Bỏ qua</button>
       </div>
-      <br>
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG TỪ ĐIỂN -->
     <div class="dictionary-page" id="dictionaryPage">
       <h1>📚 Từ điển</h1>
-      <p class="subtitle">50 từ vựng tiếng Anh</p>
-
+      <p class="subtitle">Tra cứu từ vựng</p>
       <div class="search-box">
-        <input 
-          type="text" 
-          class="search-input" 
-          id="searchInput" 
-          placeholder="Tìm kiếm từ..."
-          oninput="searchWord()"
-        >
+        <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm từ..." oninput="searchWord()">
       </div>
-
       <div class="word-list" id="wordList"></div>
-
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG KẾT QUẢ -->
     <div class="result-page" id="resultPage">
       <h1>🎉 Kết quả</h1>
       <p class="subtitle">Bạn đã hoàn thành!</p>
-
       <div class="result-score">
         <div class="score-circle">
           <div class="score-number" id="scoreNumber">0</div>
           <div class="score-label" id="scoreLabel">điểm</div>
         </div>
       </div>
-
       <div class="result-stats">
         <div class="result-stat">
           <div class="result-stat-value" id="correctCount">0</div>
@@ -612,78 +571,34 @@
           <div class="result-stat-label" id="incorrectLabel">Sai</div>
         </div>
       </div>
-
       <button class="btn-primary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG LUYỆN ĐÁNH CHỮ -->
     <div class="typing-page" id="typingPage">
       <h1>⌨️ Luyện đánh chữ</h1>
       <div class="progress-info" id="typingProgress">Đã gõ: 0/100 từ</div>
-
       <div class="typing-stats">
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wpm">0</div>
-          <div class="typing-stat-label">WPM</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="accuracy">100</div>
-          <div class="typing-stat-label">% Chính xác</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="timer">0:00</div>
-          <div class="typing-stat-label">Thời gian</div>
-        </div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wpm">0</div><div class="typing-stat-label">WPM</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="accuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="timer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
       </div>
-
       <div class="typing-target" id="typingTarget"></div>
-
-      <textarea 
-        class="typing-input" 
-        id="typingInput" 
-        placeholder="Bắt đầu gõ..."
-        autocomplete="off"
-        spellcheck="false"
-        rows="5"
-      ></textarea>
-
+      <textarea class="typing-input" id="typingInput" placeholder="Bắt đầu gõ..." autocomplete="off" spellcheck="false" rows="5"></textarea>
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG LUYỆN TỪ VỰNG -->
-    <div class="typing-page" id="wordTypingPage" style="display: none;">
+    <div class="typing-page" id="wordTypingPage">
       <h1>✍️ Luyện từ vựng</h1>
       <div class="progress-info" id="wordTypingProgress">Từ 1/50</div>
-
       <div class="typing-stats">
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordWpm">0</div>
-          <div class="typing-stat-label">WPM</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordAccuracy">100</div>
-          <div class="typing-stat-label">% Chính xác</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordTimer">0:00</div>
-          <div class="typing-stat-label">Thời gian</div>
-        </div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordWpm">0</div><div class="typing-stat-label">WPM</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordAccuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordTimer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
       </div>
-
       <div class="typing-target" id="wordTypingTarget" style="font-size: 2rem; font-weight: bold; text-align: center; min-height: 100px;">hello</div>
-
-      <input 
-        type="text" 
-        class="typing-input" 
-        id="wordTypingInput" 
-        placeholder="Bắt đầu gõ từ..."
-        autocomplete="off"
-        spellcheck="false"
-        style="font-size: 1.3rem; text-align: center; min-height: auto;"
-      >
-
+      <input type="text" class="typing-input" id="wordTypingInput" placeholder="Bắt đầu gõ từ..." autocomplete="off" spellcheck="false" style="font-size: 1.3rem; text-align: center; min-height: auto;">
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-      </div>
+    </div>
 
     <div class="shooting-page" id="shootingPage">
       <h1>🎯 Bắn từ vựng</h1>
