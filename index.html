@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Học Tiếng Anh - 1000 Từ Vựng</title>
   <style>
-    <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
     .container { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); max-width: 600px; width: 100%; }
@@ -110,131 +109,6 @@
       .achievement-notification { min-width: 250px; right: -350px; }
       .achievement-notification.show { right: 10px; }
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="home-page" id="homePage">
-      <h1>🎯 TRÍ QUÂN ĐẸP TRAI</h1>
-      <p class="subtitle">Luyện từ vựng tiếng Anh</p>
-      <div class="menu-card" onclick="startQuiz()"><h2>📝 Kiểm tra 50 từ</h2><p>Kiểm tra kiến thức với 50 từ ngẫu nhiên</p></div>
-      <div class="menu-card" onclick="showDictionary()"><h2>📚 Từ điển</h2><p>Tra cứu và học từ vựng</p></div>
-      <div class="menu-card" onclick="startTyping()"><h2>⌨️ Luyện đánh chữ</h2><p>Luyện đánh máy 100 từ</p></div>
-      <div class="menu-card" onclick="startWordTyping()"><h2>✍️ Luyện từ vựng</h2><p>Luyện gõ từ tiếng Anh</p></div>
-      <div class="menu-card" onclick="startShootingGame()"><h2>🎯 Bắn từ vựng</h2><p>Bắn trúng nghĩa đúng trước khi từ rơi xuống!</p></div>
-    </div>
-
-    <div class="quiz-page" id="quizPage">
-      <h1>📝 Kiểm tra</h1>
-      <div class="progress-info" id="progressInfo">Câu 1/50</div>
-      <div class="word-card">
-        <div class="english-word" id="englishWord">HELLO</div>
-        <div class="word-type" id="wordType">(noun)</div>
-      </div>
-      <input type="text" class="answer-input" id="answerInput" placeholder="Nhập nghĩa tiếng Việt..." autocomplete="off">
-      <div class="feedback" id="feedback"></div>
-      <div class="button-group">
-        <button class="btn-primary" onclick="checkAnswer()">✓ Kiểm tra</button>
-        <button class="btn-secondary" onclick="skipWord()">→ Bỏ qua</button>
-      </div>
-      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-
-    <div class="dictionary-page" id="dictionaryPage">
-      <h1>📚 Từ điển</h1>
-      <p class="subtitle">Tra cứu từ vựng</p>
-      <div class="search-box">
-        <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm từ..." oninput="searchWord()">
-      </div>
-      <div class="word-list" id="wordList"></div>
-      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-
-    <div class="result-page" id="resultPage">
-      <h1>🎉 Kết quả</h1>
-      <p class="subtitle">Bạn đã hoàn thành!</p>
-      <div class="result-score">
-        <div class="score-circle">
-          <div class="score-number" id="scoreNumber">0</div>
-          <div class="score-label" id="scoreLabel">điểm</div>
-        </div>
-      </div>
-      <div class="result-stats">
-        <div class="result-stat">
-          <div class="result-stat-value" id="correctCount">0</div>
-          <div class="result-stat-label" id="correctLabel">Đúng</div>
-        </div>
-        <div class="result-stat">
-          <div class="result-stat-value" id="incorrectCount">0</div>
-          <div class="result-stat-label" id="incorrectLabel">Sai</div>
-        </div>
-      </div>
-      <button class="btn-primary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-
-    <div class="typing-page" id="typingPage">
-      <h1>⌨️ Luyện đánh chữ</h1>
-      <div class="progress-info" id="typingProgress">Đã gõ: 0/100 từ</div>
-      <div class="typing-stats">
-        <div class="typing-stat"><div class="typing-stat-value" id="wpm">0</div><div class="typing-stat-label">WPM</div></div>
-        <div class="typing-stat"><div class="typing-stat-value" id="accuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
-        <div class="typing-stat"><div class="typing-stat-value" id="timer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
-      </div>
-      <div class="typing-target" id="typingTarget"></div>
-      <textarea class="typing-input" id="typingInput" placeholder="Bắt đầu gõ..." autocomplete="off" spellcheck="false" rows="5"></textarea>
-      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-
-    <div class="typing-page" id="wordTypingPage">
-      <h1>✍️ Luyện từ vựng</h1>
-      <div class="progress-info" id="wordTypingProgress">Từ 1/50</div>
-      <div class="typing-stats">
-        <div class="typing-stat"><div class="typing-stat-value" id="wordWpm">0</div><div class="typing-stat-label">WPM</div></div>
-        <div class="typing-stat"><div class="typing-stat-value" id="wordAccuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
-        <div class="typing-stat"><div class="typing-stat-value" id="wordTimer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
-      </div>
-      <div class="typing-target" id="wordTypingTarget" style="font-size: 2rem; font-weight: bold; text-align: center; min-height: 100px;">hello</div>
-      <input type="text" class="typing-input" id="wordTypingInput" placeholder="Bắt đầu gõ từ..." autocomplete="off" spellcheck="false" style="font-size: 1.3rem; text-align: center; min-height: auto;">
-      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-
-    <div class="shooting-page" id="shootingPage">
-      <h1>🎯 Bắn từ vựng</h1>
-      <div class="game-stats">
-        <div class="game-stat"><div class="game-stat-value" id="gameScore">0</div><div class="game-stat-label">Điểm</div></div>
-        <div class="game-stat"><div class="game-stat-value" id="gameLevel">1</div><div class="game-stat-label">Level</div></div>
-        <div class="game-stat"><div class="game-stat-value" id="gameStreak">0</div><div class="game-stat-label">Combo</div></div>
-      </div>
-      <div class="game-container" id="gameContainer">
-        <div class="lives-display" id="livesDisplay">❤️❤️❤️</div>
-        <div class="level-display" id="levelDisplay">Level 1</div>
-        <div class="combo-display" id="comboDisplay">🔥 COMBO x2</div>
-        <div class="level-up-display" id="levelUpDisplay">LEVEL UP!</div>
-        <button class="pause-button" id="pauseButton" onclick="togglePause()">⏸️ Tạm dừng</button>
-        <div class="hint-text" id="hintText"></div>
-        <div class="answer-options" id="answerOptions"></div>
-        <div class="pause-overlay" id="pauseOverlay">
-          <div class="pause-text">⏸️ TẠM DỪNG</div>
-          <button class="btn-primary" onclick="togglePause()" style="padding: 15px 40px; font-size: 1.2rem; margin-bottom: 15px;">▶️ Tiếp tục</button>
-          <button class="btn-secondary" onclick="goHome()" style="padding: 15px 40px; font-size: 1.2rem;">🏠 Về trang chủ</button>
-        </div>
-        <div class="game-over-overlay" id="gameOverOverlay">
-          <div class="game-over-text">GAME OVER</div>
-          <div class="game-over-score">Điểm: <span id="finalScore">0</span></div>
-          <div class="game-over-score" style="font-size: 1.5rem; margin-top: -20px;">Level: <span id="finalLevel">1</span></div>
-          <button class="btn-primary" onclick="restartShootingGame()" style="padding: 15px 40px; font-size: 1.2rem;">🔄 Chơi lại</button>
-        </div>
-      </div>
-      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
-    </div>
-  </div>
-
-  <div class="achievement-notification" id="achievementNotification">
-    <div class="achievement-title" id="achievementTitle">🏆 Thành tích mới!</div>
-    <div class="achievement-desc" id="achievementDesc">Bạn đã đạt combo x5</div>
-  </div>
-
-  <script>
     * {
       margin: 0;
       padding: 0;
@@ -617,383 +491,6 @@
       border-radius: 3px;
     }
 
-    /* Trang bắn từ vựng */
-    .shooting-page {
-      display: none;
-    }
-
-    .game-container {
-      position: relative;
-      height: 500px;
-      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 15px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      border: 3px solid #667eea;
-    }
-
-    .game-stats {
-      display: flex;
-      justify-content: space-around;
-      padding: 15px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    .game-stat {
-      text-align: center;
-    }
-
-    .game-stat-value {
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #667eea;
-    }
-
-    .game-stat-label {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .falling-word {
-      position: absolute;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 15px 25px;
-      border-radius: 10px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5);
-      animation: fall linear;
-      cursor: default;
-      letter-spacing: 1px;
-    }
-
-    @keyframes fall {
-      from {
-        top: -60px;
-      }
-      to {
-        top: 100%;
-      }
-    }
-
-    .answer-options {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    .answer-option {
-      background: rgba(255, 255, 255, 0.95);
-      color: #333;
-      padding: 12px 8px;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 2px solid transparent;
-      text-align: center;
-      line-height: 1.3;
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .answer-option:hover {
-      background: #667eea;
-      color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    .answer-option.correct {
-      background: #28a745;
-      color: white;
-      border-color: #1e7e34;
-    }
-
-    .answer-option.incorrect {
-      background: #dc3545;
-      color: white;
-      border-color: #bd2130;
-    }
-
-    .lives-display {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      font-size: 2rem;
-      color: #ff6b6b;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    .level-display {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-weight: bold;
-      color: #667eea;
-      font-size: 1.2rem;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .combo-display {
-      position: absolute;
-      top: 60px;
-      right: 15px;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      color: white;
-      padding: 8px 15px;
-      border-radius: 15px;
-      font-weight: bold;
-      font-size: 1rem;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-      display: none;
-    }
-
-    .combo-display.show {
-      display: block;
-      animation: pulse 0.5s ease;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .game-over-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.9);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 100;
-    }
-
-    .game-over-overlay.show {
-      display: flex;
-    }
-
-    .game-over-text {
-      font-size: 3rem;
-      color: white;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px rgba(255, 107, 107, 0.8);
-    }
-
-    .game-over-score {
-      font-size: 2rem;
-      color: #667eea;
-      margin-bottom: 30px;
-    }
-
-    .level-up-display {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px 50px;
-      border-radius: 20px;
-      font-size: 2.5rem;
-      font-weight: bold;
-      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
-      display: none;
-      z-index: 50;
-      animation: levelUpAnim 0.5s ease;
-    }
-
-    @keyframes levelUpAnim {
-      0% { transform: translate(-50%, -50%) scale(0); }
-      50% { transform: translate(-50%, -50%) scale(1.1); }
-      100% { transform: translate(-50%, -50%) scale(1); }
-    }
-
-    .level-up-display.show {
-      display: block;
-    }
-
-    .power-up {
-      position: absolute;
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      color: white;
-      padding: 10px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      animation: fall linear, rotate 2s linear infinite;
-      box-shadow: 0 5px 20px rgba(240, 147, 251, 0.6);
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .power-up:hover {
-      transform: scale(1.2);
-    }
-
-    .particle {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      pointer-events: none;
-      animation: particleFloat 1s ease-out forwards;
-    }
-
-    @keyframes particleFloat {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--tx), var(--ty)) scale(0);
-      }
-    }
-
-    .score-popup {
-      position: absolute;
-      color: #ffd700;
-      font-weight: bold;
-      font-size: 1.5rem;
-      pointer-events: none;
-      animation: scorePopup 1s ease-out forwards;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    }
-
-    @keyframes scorePopup {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-50px) scale(1.5);
-      }
-    }
-
-    .achievement-notification {
-      position: fixed;
-      top: 20px;
-      right: -400px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-      z-index: 1000;
-      transition: right 0.5s ease;
-      min-width: 300px;
-    }
-
-    .achievement-notification.show {
-      right: 20px;
-    }
-
-    .achievement-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-
-    .achievement-desc {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    .pause-button {
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: bold;
-      color: #667eea;
-    }
-
-    .pause-button:hover {
-      background: white;
-      transform: translateX(-50%) scale(1.1);
-    }
-
-    .pause-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 100;
-    }
-
-    .pause-overlay.show {
-      display: flex;
-    }
-
-    .pause-text {
-      font-size: 3rem;
-      color: white;
-      margin-bottom: 30px;
-    }
-
-    .hint-text {
-      position: absolute;
-      bottom: 150px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 1rem;
-      color: #667eea;
-      font-weight: bold;
-      display: none;
-      animation: fadeInOut 2s ease;
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
     @media (max-width: 600px) {
       .container {
         padding: 25px;
@@ -1014,36 +511,6 @@
       .typing-input {
         font-size: 1rem;
       }
-
-      .answer-options {
-        grid-template-columns: 1fr;
-        gap: 8px;
-        padding: 10px;
-      }
-
-      .answer-option {
-        font-size: 0.9rem;
-        padding: 10px;
-        min-height: 50px;
-      }
-
-      .falling-word {
-        font-size: 1.2rem;
-        padding: 12px 20px;
-      }
-
-      .game-container {
-        height: 400px;
-      }
-
-      .achievement-notification {
-        min-width: 250px;
-        right: -350px;
-      }
-
-      .achievement-notification.show {
-        right: 10px;
-      }
     }
   </style>
 </head>
@@ -1051,12 +518,12 @@
   <div class="container">
     <!-- TRANG CHỦ -->
     <div class="home-page" id="homePage">
-      <h1>🎯 TRÍ QUÂN ĐẸP TRAI</h1>
-      <p class="subtitle">Luyện từ vựng tiếng Anh</p>
+      <h1>🎯 TRÍ QUÂN ĐẸP TRAI  </h1>
+      <p class="subtitle">Luyện từ</p>
 
       <div class="menu-card" onclick="startQuiz()">
         <h2>📝 Kiểm tra 50 từ</h2>
-        <p>Kiểm tra kiến thức với 50 từ ngẫu nhiên</p>
+        <p>Kiểm tra kiến thức của TRÍ QUÂN ĐẸP TRAI với 50 từ ngẫu nhiên</p>
       </div>
 
       <div class="menu-card" onclick="showDictionary()">
@@ -1066,17 +533,12 @@
 
       <div class="menu-card" onclick="startTyping()">
         <h2>⌨️ Luyện đánh chữ</h2>
-        <p>Luyện đánh máy 100 từ</p>
+        <p>Luyện đánh máy 100 từ </p>
       </div>
 
       <div class="menu-card" onclick="startWordTyping()">
         <h2>✍️ Luyện từ vựng</h2>
-        <p>Luyện gõ từ tiếng Anh</p>
-      </div>
-
-      <div class="menu-card" onclick="startShootingGame()">
-        <h2>🎯 Bắn từ vựng</h2>
-        <p>Bắn trúng nghĩa đúng trước khi từ rơi xuống!</p>
+        <p>Luyện gõ từ </p>
       </div>
     </div>
 
@@ -1111,7 +573,7 @@
     <!-- TRANG TỪ ĐIỂN -->
     <div class="dictionary-page" id="dictionaryPage">
       <h1>📚 Từ điển</h1>
-      <p class="subtitle">Tra cứu từ vựng tiếng Anh</p>
+      <p class="subtitle">50 từ vựng tiếng Anh</p>
 
       <div class="search-box">
         <input 
@@ -1199,7 +661,7 @@
           <div class="typing-stat-label">WPM</div>
         </div>
         <div class="typing-stat">
-          <div class="typing-stat-value" id=""wordAccuracy">100</div>
+          <div class="typing-stat-value" id="wordAccuracy">100</div>
           <div class="typing-stat-label">% Chính xác</div>
         </div>
         <div class="typing-stat">
@@ -1221,6 +683,41 @@
       >
 
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
+       <h1>🎯 Bắn từ vựng</h1>
+      <div class="game-stats">
+        <div class="game-stat"><div class="game-stat-value" id="gameScore">0</div><div class="game-stat-label">Điểm</div></div>
+        <div class="game-stat"><div class="game-stat-value" id="gameLevel">1</div><div class="game-stat-label">Level</div></div>
+        <div class="game-stat"><div class="game-stat-value" id="gameStreak">0</div><div class="game-stat-label">Combo</div></div>
+      </div>
+      <div class="game-container" id="gameContainer">
+        <div class="lives-display" id="livesDisplay">❤️❤️❤️</div>
+        <div class="level-display" id="levelDisplay">Level 1</div>
+        <div class="combo-display" id="comboDisplay">🔥 COMBO x2</div>
+        <div class="level-up-display" id="levelUpDisplay">LEVEL UP!</div>
+        <button class="pause-button" id="pauseButton" onclick="togglePause()">⏸️ Tạm dừng</button>
+        <div class="hint-text" id="hintText"></div>
+        <div class="answer-options" id="answerOptions"></div>
+        <div class="pause-overlay" id="pauseOverlay">
+          <div class="pause-text">⏸️ TẠM DỪNG</div>
+          <button class="btn-primary" onclick="togglePause()" style="padding: 15px 40px; font-size: 1.2rem; margin-bottom: 15px;">▶️ Tiếp tục</button>
+          <button class="btn-secondary" onclick="goHome()" style="padding: 15px 40px; font-size: 1.2rem;">🏠 Về trang chủ</button>
+        </div>
+        <div class="game-over-overlay" id="gameOverOverlay">
+          <div class="game-over-text">GAME OVER</div>
+          <div class="game-over-score">Điểm: <span id="finalScore">0</span></div>
+          <div class="game-over-score" style="font-size: 1.5rem; margin-top: -20px;">Level: <span id="finalLevel">1</span></div>
+          <button class="btn-primary" onclick="restartShootingGame()" style="padding: 15px 40px; font-size: 1.2rem;">🔄 Chơi lại</button>
+        </div>
+      </div>
+      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
+    </div>
+  </div>
+
+  <div class="achievement-notification" id="achievementNotification">
+    <div class="achievement-title" id="achievementTitle">🏆 Thành tích mới!</div>
+    <div class="achievement-desc" id="achievementDesc">Bạn đã đạt combo x5</div>
+  </div>
+
     </div>
   </div>
 
