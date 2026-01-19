@@ -3,501 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Học Tiếng Anh - 1000 Từ Vựng</title>
+  <title>Học Tiếng Anh - TRÍ QUÂN ĐẸP TRAI</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .container {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      width: 100%;
-    }
-
-    h1 {
-      text-align: center;
-      color: #667eea;
-      margin-bottom: 10px;
-      font-size: 2.5rem;
-    }
-
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 40px;
-      font-size: 1rem;
-    }
-
-    /* Trang chủ */
-    .home-page {
-      display: block;
-    }
-
-    .menu-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 30px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-    }
-
-    .menu-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-    }
-
-    .menu-card h2 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-
-    .menu-card p {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    /* Trang kiểm tra */
-    .quiz-page {
-      display: none;
-    }
-
-    .progress-info {
-      text-align: center;
-      font-size: 1.2rem;
-      color: #667eea;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    .word-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 60px 40px;
-      border-radius: 15px;
-      text-align: center;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-    }
-
-    .english-word {
-      font-size: 3rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-
-    .word-type {
-      font-size: 1rem;
-      opacity: 0.9;
-      font-style: italic;
-    }
-
-    .answer-input {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 1.1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      transition: all 0.3s;
-      outline: none;
-      margin-bottom: 15px;
-    }
-
-    .answer-input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .feedback {
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 15px;
-      display: none;
-    }
-
-    .feedback.show {
-      display: block;
-    }
-
-    .feedback.correct {
-      background: #d4edda;
-      color: #155724;
-      border: 2px solid #c3e6cb;
-    }
-
-    .feedback.incorrect {
-      background: #f8d7da;
-      color: #721c24;
-      border: 2px solid #f5c6cb;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 15px;
-    }
-
-    button {
-      flex: 1;
-      padding: 15px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-primary {
-      background: #667eea;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #5568d3;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn-secondary {
-      background: #f8f9fa;
-      color: #666;
-    }
-
-    .btn-secondary:hover {
-      background: #e9ecef;
-      transform: translateY(-2px);
-    }
-
-    /* Trang từ điển */
-    .dictionary-page {
-      display: none;
-    }
-
-    .search-box {
-      margin-bottom: 20px;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 1.1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      outline: none;
-    }
-
-    .word-list {
-      max-height: 500px;
-      overflow-y: auto;
-    }
-
-    .word-item {
-      background: #f8f9fa;
-      padding: 15px 20px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      border-left: 4px solid #667eea;
-    }
-
-    .word-item-english {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #667eea;
-      margin-bottom: 5px;
-    }
-
-    .word-item-type {
-      font-size: 0.9rem;
-      color: #999;
-      font-style: italic;
-      margin-bottom: 5px;
-    }
-
-    .word-item-vietnamese {
-      font-size: 1.1rem;
-      color: #333;
-    }
-
-    /* Trang kết quả */
-    .result-page {
-      display: none;
-    }
-
-    .result-score {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .score-circle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-    }
-
-    .score-number {
-      font-size: 3rem;
-      font-weight: bold;
-    }
-
-    .score-label {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    .result-stats {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 30px;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 10px;
-    }
-
-    .result-stat {
-      text-align: center;
-    }
-
-    .result-stat-value {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #667eea;
-    }
-
-    .result-stat-label {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .back-button {
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    /* Trang luyện đánh chữ */
-    .typing-page {
-      display: none;
-    }
-
-    .typing-target {
-      background: #f8f9fa;
-      padding: 30px;
-      border-radius: 15px;
-      text-align: left;
-      margin-bottom: 20px;
-      font-size: 1.2rem;
-      color: #333;
-      line-height: 1.8;
-      min-height: 150px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-
-    .typing-input {
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 1.1rem;
-      border: 3px solid #e0e0e0;
-      border-radius: 10px;
-      outline: none;
-      margin-bottom: 20px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.8;
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .typing-input:focus {
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .typing-input.error {
-      border-color: #dc3545;
-      background: #ffe6e6;
-    }
-
-    .typing-stats {
-      display: flex;
-      justify-content: space-around;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    .typing-stat {
-      text-align: center;
-    }
-
-    .typing-stat-value {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #667eea;
-    }
-
-    .typing-stat-label {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .char-correct {
-      color: #28a745;
-    }
-
-    .char-incorrect {
-      color: #dc3545;
-      background: #ffe6e6;
-    }
-
-    .char-current {
-      background: #667eea;
-      color: white;
-      padding: 2px 4px;
-      border-radius: 3px;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+    .container { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); max-width: 600px; width: 100%; }
+    h1 { text-align: center; color: #667eea; margin-bottom: 10px; font-size: 2.5rem; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 40px; font-size: 1rem; }
+    .home-page { display: block; }
+    .menu-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 20px; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3); }
+    .menu-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5); }
+    .menu-card h2 { font-size: 1.8rem; margin-bottom: 10px; }
+    .menu-card p { font-size: 1rem; opacity: 0.9; }
+    .quiz-page, .dictionary-page, .result-page, .typing-page, .shooting-page { display: none; }
+    .progress-info { text-align: center; font-size: 1.2rem; color: #667eea; font-weight: bold; margin-bottom: 20px; }
+    .word-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+    .english-word { font-size: 3rem; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+    .word-type { font-size: 1rem; opacity: 0.9; font-style: italic; }
+    .answer-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid #e0e0e0; border-radius: 10px; transition: all 0.3s; outline: none; margin-bottom: 15px; }
+    .answer-input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+    .feedback { padding: 15px; border-radius: 10px; text-align: center; font-size: 1.1rem; font-weight: 600; margin-bottom: 15px; display: none; }
+    .feedback.show { display: block; }
+    .feedback.correct { background: #d4edda; color: #155724; border: 2px solid #c3e6cb; }
+    .feedback.incorrect { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+    .button-group { display: flex; gap: 15px; }
+    button { flex: 1; padding: 15px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; }
+    .btn-primary { background: #667eea; color: white; }
+    .btn-primary:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+    .btn-secondary { background: #f8f9fa; color: #666; }
+    .btn-secondary:hover { background: #e9ecef; transform: translateY(-2px); }
+    .search-box { margin-bottom: 20px; }
+    .search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 2px solid #e0e0e0; border-radius: 10px; outline: none; }
+    .word-list { max-height: 500px; overflow-y: auto; }
+    .word-item { background: #f8f9fa; padding: 15px 20px; margin-bottom: 10px; border-radius: 10px; border-left: 4px solid #667eea; }
+    .word-item-english { font-size: 1.3rem; font-weight: bold; color: #667eea; margin-bottom: 5px; }
+    .word-item-type { font-size: 0.9rem; color: #999; font-style: italic; margin-bottom: 5px; }
+    .word-item-vietnamese { font-size: 1.1rem; color: #333; }
+    .result-score { text-align: center; margin-bottom: 30px; }
+    .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4); }
+    .score-number { font-size: 3rem; font-weight: bold; }
+    .score-label { font-size: 1rem; opacity: 0.9; }
+    .result-stats { display: flex; justify-content: space-around; margin-bottom: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+    .result-stat { text-align: center; }
+    .result-stat-value { font-size: 2rem; font-weight: bold; color: #667eea; }
+    .result-stat-label { font-size: 0.9rem; color: #666; }
+    .back-button { width: 100%; margin-top: 20px; }
+    .typing-target { background: #f8f9fa; padding: 30px; border-radius: 15px; text-align: left; margin-bottom: 20px; font-size: 1.2rem; color: #333; line-height: 1.8; min-height: 150px; max-height: 300px; overflow-y: auto; }
+    .typing-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; border: 3px solid #e0e0e0; border-radius: 10px; outline: none; margin-bottom: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; resize: vertical; min-height: 120px; }
+    .typing-input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+    .typing-input.error { border-color: #dc3545; background: #ffe6e6; }
+    .typing-stats, .game-stats { display: flex; justify-content: space-around; padding: 20px; background: #f8f9fa; border-radius: 10px; margin-bottom: 20px; }
+    .typing-stat, .game-stat { text-align: center; }
+    .typing-stat-value, .game-stat-value { font-size: 2rem; font-weight: bold; color: #667eea; }
+    .typing-stat-label, .game-stat-label { font-size: 0.9rem; color: #666; }
+    .game-stat-value { font-size: 1.8rem; }
+    .char-correct { color: #28a745; }
+    .char-incorrect { color: #dc3545; background: #ffe6e6; }
+    .char-current { background: #667eea; color: white; padding: 2px 4px; border-radius: 3px; }
+    .game-container { position: relative; height: 500px; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); border-radius: 15px; overflow: hidden; margin-bottom: 20px; border: 3px solid #667eea; }
+    .falling-word { position: absolute; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 25px; border-radius: 10px; font-size: 1.5rem; font-weight: bold; text-transform: uppercase; box-shadow: 0 5px 15px rgba(102, 126, 234, 0.5); animation: fall linear; cursor: default; letter-spacing: 1px; }
+    @keyframes fall { from { top: -60px; } to { top: 100%; } }
+    .answer-options { position: absolute; bottom: 0; left: 0; right: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 15px; background: rgba(0, 0, 0, 0.3); }
+    .answer-option { background: rgba(255, 255, 255, 0.95); color: #333; padding: 12px 8px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 2px solid transparent; text-align: center; line-height: 1.3; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+    .answer-option:hover { background: #667eea; color: white; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4); }
+    .answer-option.correct { background: #28a745; color: white; border-color: #1e7e34; }
+    .answer-option.incorrect { background: #dc3545; color: white; border-color: #bd2130; }
+    .lives-display { position: absolute; top: 15px; left: 15px; font-size: 2rem; color: #ff6b6b; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); }
+    .level-display { position: absolute; top: 15px; right: 15px; background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 20px; font-weight: bold; color: #667eea; font-size: 1.2rem; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); }
+    .combo-display { position: absolute; top: 60px; right: 15px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 8px 15px; border-radius: 15px; font-weight: bold; font-size: 1rem; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3); display: none; }
+    .combo-display.show { display: block; animation: pulse 0.5s ease; }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    .game-over-overlay, .pause-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.9); display: none; align-items: center; justify-content: center; flex-direction: column; z-index: 100; }
+    .pause-overlay { background: rgba(0, 0, 0, 0.8); }
+    .game-over-overlay.show, .pause-overlay.show { display: flex; }
+    .game-over-text, .pause-text { font-size: 3rem; color: white; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
+    .pause-text { margin-bottom: 30px; }
+    .game-over-score { font-size: 2rem; color: #667eea; margin-bottom: 30px; }
+    .level-up-display { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 50px; border-radius: 20px; font-size: 2.5rem; font-weight: bold; box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6); display: none; z-index: 50; animation: levelUpAnim 0.5s ease; }
+    @keyframes levelUpAnim { 0% { transform: translate(-50%, -50%) scale(0); } 50% { transform: translate(-50%, -50%) scale(1.1); } 100% { transform: translate(-50%, -50%) scale(1); } }
+    .level-up-display.show { display: block; }
+    .power-up { position: absolute; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 10px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; animation: fall linear, rotate 2s linear infinite; box-shadow: 0 5px 20px rgba(240, 147, 251, 0.6); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .power-up:hover { transform: scale(1.2); }
+    .particle { position: absolute; width: 10px; height: 10px; border-radius: 50%; pointer-events: none; animation: particleFloat 1s ease-out forwards; }
+    @keyframes particleFloat { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0); } }
+    .score-popup { position: absolute; color: #ffd700; font-weight: bold; font-size: 1.5rem; pointer-events: none; animation: scorePopup 1s ease-out forwards; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+    @keyframes scorePopup { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
+    .achievement-notification { position: fixed; top: 20px; right: -400px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6); z-index: 1000; transition: right 0.5s ease; min-width: 300px; }
+    .achievement-notification.show { right: 20px; }
+    .achievement-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; }
+    .achievement-desc { font-size: 0.9rem; opacity: 0.9; }
+    .pause-button { position: absolute; top: 15px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); border: none; padding: 10px 20px; border-radius: 20px; font-size: 1.2rem; cursor: pointer; transition: all 0.3s; font-weight: bold; color: #667eea; }
+    .pause-button:hover { background: white; transform: translateX(-50%) scale(1.1); }
+    .hint-text { position: absolute; bottom: 150px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); padding: 10px 20px; border-radius: 10px; font-size: 1rem; color: #667eea; font-weight: bold; display: none; animation: fadeInOut 2s ease; }
+    @keyframes fadeInOut { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
     @media (max-width: 600px) {
-      .container {
-        padding: 25px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .english-word {
-        font-size: 2.5rem;
-      }
-
-      .typing-target {
-        font-size: 1rem;
-      }
-
-      .typing-input {
-        font-size: 1rem;
-      }
+      .container { padding: 25px; }
+      h1 { font-size: 2rem; }
+      .english-word { font-size: 2.5rem; }
+      .typing-target, .typing-input { font-size: 1rem; }
+      .answer-options { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+      .answer-option { font-size: 0.9rem; padding: 10px; min-height: 50px; }
+      .falling-word { font-size: 1.2rem; padding: 12px 20px; }
+      .game-container { height: 400px; }
+      .achievement-notification { min-width: 250px; right: -350px; }
+      .achievement-notification.show { right: 10px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- TRANG CHỦ -->
     <div class="home-page" id="homePage">
-      <h1>🎯 TRÍ QUÂN ĐẸP TRAI  </h1>
-      <p class="subtitle">Luyện từ</p>
-
-      <div class="menu-card" onclick="startQuiz()">
-        <h2>📝 Kiểm tra 50 từ</h2>
-        <p>Kiểm tra kiến thức của TRÍ QUÂN ĐẸP TRAI với 50 từ ngẫu nhiên</p>
-      </div>
-
-      <div class="menu-card" onclick="showDictionary()">
-        <h2>📚 Từ điển</h2>
-        <p>Tra cứu và học từ vựng</p>
-      </div>
-
-      <div class="menu-card" onclick="startTyping()">
-        <h2>⌨️ Luyện đánh chữ</h2>
-        <p>Luyện đánh máy 100 từ </p>
-      </div>
-
-      <div class="menu-card" onclick="startWordTyping()">
-        <h2>✍️ Luyện từ vựng</h2>
-        <p>Luyện gõ từ </p>
-      </div>
+      <h1>🎯 TRÍ QUÂN ĐẸP TRAI</h1>
+      <p class="subtitle">Luyện từ vựng tiếng Anh</p>
+      <div class="menu-card" onclick="startQuiz()"><h2>📝 Kiểm tra 50 từ</h2><p>Kiểm tra kiến thức với 50 từ ngẫu nhiên</p></div>
+      <div class="menu-card" onclick="showDictionary()"><h2>📚 Từ điển</h2><p>Tra cứu và học từ vựng</p></div>
+      <div class="menu-card" onclick="startTyping()"><h2>⌨️ Luyện đánh chữ</h2><p>Luyện đánh máy 100 từ</p></div>
+      <div class="menu-card" onclick="startWordTyping()"><h2>✍️ Luyện từ vựng</h2><p>Luyện gõ từ tiếng Anh</p></div>
+      <div class="menu-card" onclick="startShootingGame()"><h2>🎯 Bắn từ vựng</h2><p>Bắn trúng nghĩa đúng trước khi từ rơi xuống!</p></div>
     </div>
 
-    <!-- TRANG KIỂM TRA -->
     <div class="quiz-page" id="quizPage">
       <h1>📝 Kiểm tra</h1>
       <div class="progress-info" id="progressInfo">Câu 1/50</div>
-
       <div class="word-card">
         <div class="english-word" id="englishWord">HELLO</div>
         <div class="word-type" id="wordType">(noun)</div>
       </div>
-
-      <input 
-        type="text" 
-        class="answer-input" 
-        id="answerInput" 
-        placeholder="Nhập nghĩa tiếng Việt..."
-        autocomplete="off"
-      >
-
+      <input type="text" class="answer-input" id="answerInput" placeholder="Nhập nghĩa tiếng Việt..." autocomplete="off">
       <div class="feedback" id="feedback"></div>
-
       <div class="button-group">
         <button class="btn-primary" onclick="checkAnswer()">✓ Kiểm tra</button>
         <button class="btn-secondary" onclick="skipWord()">→ Bỏ qua</button>
       </div>
-      <br>
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG TỪ ĐIỂN -->
     <div class="dictionary-page" id="dictionaryPage">
       <h1>📚 Từ điển</h1>
-      <p class="subtitle">50 từ vựng tiếng Anh</p>
-
+      <p class="subtitle">Tra cứu từ vựng</p>
       <div class="search-box">
-        <input 
-          type="text" 
-          class="search-input" 
-          id="searchInput" 
-          placeholder="Tìm kiếm từ..."
-          oninput="searchWord()"
-        >
+        <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm từ..." oninput="searchWord()">
       </div>
-
       <div class="word-list" id="wordList"></div>
-
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG KẾT QUẢ -->
     <div class="result-page" id="resultPage">
       <h1>🎉 Kết quả</h1>
       <p class="subtitle">Bạn đã hoàn thành!</p>
-
       <div class="result-score">
         <div class="score-circle">
           <div class="score-number" id="scoreNumber">0</div>
           <div class="score-label" id="scoreLabel">điểm</div>
         </div>
       </div>
-
       <div class="result-stats">
         <div class="result-stat">
           <div class="result-stat-value" id="correctCount">0</div>
@@ -508,702 +168,92 @@
           <div class="result-stat-label" id="incorrectLabel">Sai</div>
         </div>
       </div>
-
       <button class="btn-primary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG LUYỆN ĐÁNH CHỮ -->
     <div class="typing-page" id="typingPage">
       <h1>⌨️ Luyện đánh chữ</h1>
       <div class="progress-info" id="typingProgress">Đã gõ: 0/100 từ</div>
-
       <div class="typing-stats">
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wpm">0</div>
-          <div class="typing-stat-label">WPM</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="accuracy">100</div>
-          <div class="typing-stat-label">% Chính xác</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="timer">0:00</div>
-          <div class="typing-stat-label">Thời gian</div>
-        </div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wpm">0</div><div class="typing-stat-label">WPM</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="accuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="timer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
       </div>
-
       <div class="typing-target" id="typingTarget"></div>
-
-      <textarea 
-        class="typing-input" 
-        id="typingInput" 
-        placeholder="Bắt đầu gõ..."
-        autocomplete="off"
-        spellcheck="false"
-        rows="5"
-      ></textarea>
-
+      <textarea class="typing-input" id="typingInput" placeholder="Bắt đầu gõ..." autocomplete="off" spellcheck="false" rows="5"></textarea>
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
 
-    <!-- TRANG LUYỆN TỪ VỰNG -->
-    <div class="typing-page" id="wordTypingPage" style="display: none;">
+    <div class="typing-page" id="wordTypingPage">
       <h1>✍️ Luyện từ vựng</h1>
       <div class="progress-info" id="wordTypingProgress">Từ 1/50</div>
-
       <div class="typing-stats">
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordWpm">0</div>
-          <div class="typing-stat-label">WPM</div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordWpm">0</div><div class="typing-stat-label">WPM</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordAccuracy">100</div><div class="typing-stat-label">% Chính xác</div></div>
+        <div class="typing-stat"><div class="typing-stat-value" id="wordTimer">0:00</div><div class="typing-stat-label">Thời gian</div></div>
+      </div>
+      <div class="typing-target" id="wordTypingTarget" style="font-size: 2rem; font-weight: bold; text-align: center; min-height: 100px;">hello</div>
+      <input type="text" class="typing-input" id="wordTypingInput" placeholder="Bắt đầu gõ từ..." autocomplete="off" spellcheck="false" style="font-size: 1.3rem; text-align: center; min-height: auto;">
+      <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
+    </div>
+
+    <div class="shooting-page" id="shootingPage">
+      <h1>🎯 Bắn từ vựng</h1>
+      <div class="game-stats">
+        <div class="game-stat"><div class="game-stat-value" id="gameScore">0</div><div class="game-stat-label">Điểm</div></div>
+        <div class="game-stat"><div class="game-stat-value" id="gameLevel">1</div><div class="game-stat-label">Level</div></div>
+        <div class="game-stat"><div class="game-stat-value" id="gameStreak">0</div><div class="game-stat-label">Combo</div></div>
+      </div>
+      <div class="game-container" id="gameContainer">
+        <div class="lives-display" id="livesDisplay">❤️❤️❤️</div>
+        <div class="level-display" id="levelDisplay">Level 1</div>
+        <div class="combo-display" id="comboDisplay">🔥 COMBO x2</div>
+        <div class="level-up-display" id="levelUpDisplay">LEVEL UP!</div>
+        <button class="pause-button" id="pauseButton" onclick="togglePause()">⏸️ Tạm dừng</button>
+        <div class="hint-text" id="hintText"></div>
+        <div class="answer-options" id="answerOptions"></div>
+        <div class="pause-overlay" id="pauseOverlay">
+          <div class="pause-text">⏸️ TẠM DỪNG</div>
+          <button class="btn-primary" onclick="togglePause()" style="padding: 15px 40px; font-size: 1.2rem; margin-bottom: 15px;">▶️ Tiếp tục</button>
+          <button class="btn-secondary" onclick="goHome()" style="padding: 15px 40px; font-size: 1.2rem;">🏠 Về trang chủ</button>
         </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordAccuracy">100</div>
-          <div class="typing-stat-label">% Chính xác</div>
-        </div>
-        <div class="typing-stat">
-          <div class="typing-stat-value" id="wordTimer">0:00</div>
-          <div class="typing-stat-label">Thời gian</div>
+        <div class="game-over-overlay" id="gameOverOverlay">
+          <div class="game-over-text">GAME OVER</div>
+          <div class="game-over-score">Điểm: <span id="finalScore">0</span></div>
+          <div class="game-over-score" style="font-size: 1.5rem; margin-top: -20px;">Level: <span id="finalLevel">1</span></div>
+          <button class="btn-primary" onclick="restartShootingGame()" style="padding: 15px 40px; font-size: 1.2rem;">🔄 Chơi lại</button>
         </div>
       </div>
-
-      <div class="typing-target" id="wordTypingTarget" style="font-size: 2rem; font-weight: bold; text-align: center; min-height: 100px;">hello</div>
-
-      <input 
-        type="text" 
-        class="typing-input" 
-        id="wordTypingInput" 
-        placeholder="Bắt đầu gõ từ..."
-        autocomplete="off"
-        spellcheck="false"
-        style="font-size: 1.3rem; text-align: center; min-height: auto;"
-      >
-
       <button class="btn-secondary back-button" onclick="goHome()">← Về trang chủ</button>
     </div>
   </div>
 
+  <div class="achievement-notification" id="achievementNotification">
+    <div class="achievement-title" id="achievementTitle">🏆 Thành tích mới!</div>
+    <div class="achievement-desc" id="achievementDesc">Bạn đã đạt combo x5</div>
+  </div>
+
   <script>
-    // Database 50 từ vựng
-    const vocabulary = [
-       
-      { english: "able", vietnamese: ["có năng lực, có tài"], type: "adj" },
-{ english: "abandon", vietnamese: ["bỏ, từ bỏ"], type: "verb" },
-{ english: "above", vietnamese: ["ở trên, lên trên"], type: "adverb" },
-{ english: "act", vietnamese: ["hành động, hành vi, cử chỉ, đối xử"], type: "noun, verb" },
-{ english: "afraid", vietnamese: ["sợ, sợ hãi, hoảng sợ"], type: "adj" },
-{ english: "again", vietnamese: ["lại, nữa, lần nữa"], type: "adverb" },
-{ english: "against", vietnamese: ["chống lại, phản đối"], type: "preposition" },
-{ english: "ago", vietnamese: ["trước đây"], type: "adverb" },
-{ english: "agree", vietnamese: ["đồng ý, tán thành"], type: "verb" },
-{ english: "allow", vietnamese: ["cho phép, để cho"], type: "verb" },
-{ english: "also", vietnamese: ["cũng, cũng vậy, cũng thế"], type: "adverb" },
-{ english: "among", vietnamese: ["giữa, ở giữa"], type: "preposition" },
-{ english: "an", vietnamese: ["nếu"], type: "article" },
-{ english: "anger", vietnamese: ["sự tức giận, sự giận dữ"], type: "noun" },
-{ english: "animal", vietnamese: ["động vật, thú vật"], type: "noun" },
-{ english: "answer", vietnamese: ["sự trả lời, trả lời"], type: "noun, verb" },
-{ english: "any", vietnamese: ["một người, vật nào đó, bất cứ, một chút nào, tí nào"], type: "determiner" },
-{ english: "appear", vietnamese: ["xuất hiện, hiện ra, trình diện"], type: "verb" },
-{ english: "are", vietnamese: ["chúng tôi"], type: "verb" },
-{ english: "area", vietnamese: ["diện tích, bề mặt"], type: "noun" },
-{ english: "arm", vietnamese: ["cánh tay, vũ trang, trang bị vũ khí"], type: "noun, verb" },
-{ english: "arrange", vietnamese: ["sắp xếp, sắp đặt, sửa soạn"], type: "verb" },
-{ english: "arrive", vietnamese: ["đến, tới nơi"], type: "verb" },
-{ english: "art", vietnamese: ["nghệ thuật, mỹ thuật"], type: "noun" },
-{ english: "atom", vietnamese: ["nguyên tử"], type: "noun" },
-{ english: "back", vietnamese: ["lưng, về phía sau, trở lại"], type: "noun" },
-{ english: "ball", vietnamese: ["quả bóng"], type: "noun" },
-{ english: "band", vietnamese: ["băng, đai, nẹp"], type: "noun" },
-{ english: "bank", vietnamese: ["bờ sông, đê"], type: "noun" },
-{ english: "bar", vietnamese: ["quán bán rượu"], type: "noun" },
-{ english: "base", vietnamese: ["cơ sở, cơ bản, nền móng, đặt tên, đặt cơ sở trên cái gì"], type: "noun, verb" },
-{ english: "basic", vietnamese: ["cơ bản, cơ sở"], type: "adj" },
-{ english: "bat", vietnamese: ["gậy đánh bóng chày, vợt quần vợt"], type: "noun" },
-{ english: "be", vietnamese: ["thì, là"], type: "verb" },
-{ english: "bear", vietnamese: ["mang, cầm, vác, đeo, ôm"], type: "verb" },
-{ english: "been", vietnamese: ["thì, là"], type: "verb" },
-{ english: "began", vietnamese: ["bắt đầu, mở đầu, khởi đầu"], type: "verb" },
-{ english: "begin", vietnamese: ["bắt đầu, khởi đầu"], type: "verb" },
-{ english: "behind", vietnamese: ["sau, ở đằng sau"], type: "preposition" },
-{ english: "believe", vietnamese: ["tin, tin tưởng"], type: "verb" },
-{ english: "bell", vietnamese: ["cái chuông, tiếng chuông"], type: "noun" },
-{ english: "best", vietnamese: ["tốt nhất"], type: "adj" },
-{ english: "better", vietnamese: ["tốt hơn"], type: "adj" },
-{ english: "bird", vietnamese: ["con chim"], type: "noun" },
-{ english: "bit", vietnamese: ["miếng, mảnh"], type: "noun" },
-{ english: "block", vietnamese: ["khối, tảng đá, làm ngăn cản, ngăn chặn"], type: "noun, verb" },
-{ english: "blood", vietnamese: ["máu, huyết, sự tàn sát, chém giết"], type: "noun" },
-{ english: "blow", vietnamese: ["nở hoa, sự nở hoa"], type: "verb" },
-{ english: "board", vietnamese: ["tấm ván, lát ván, lót ván"], type: "noun, verb" },
-{ english: "boat", vietnamese: ["tàu, thuyền"], type: "noun" },
-{ english: "bone", vietnamese: ["xương"], type: "noun" },
-{ english: "born", vietnamese: ["sinh, đẻ"], type: "verb" },
-{ english: "both", vietnamese: ["cả hai"], type: "determiner" },
-{ english: "bottom", vietnamese: ["phần dưới cùng, thấp nhất, cuối, cuối cùng"], type: "noun" },
-{ english: "bought", vietnamese: ["mua"], type: "verb" },
-{ english: "box", vietnamese: ["hộp, thùng"], type: "noun" },
-{ english: "branch", vietnamese: ["ngành, nhành cây, nhánh sông, ngã đường"], type: "noun" },
-{ english: "bread", vietnamese: ["bánh mỳ"], type: "noun" },
-{ english: "break", vietnamese: ["bẻ gãy, đập vỡ, sự gãy, sự vỡ"], type: "verb" },
-{ english: "bright", vietnamese: ["sáng, sáng chói"], type: "adj" },
-{ english: "bring", vietnamese: ["mang, cầm, xách lại"], type: "verb" },
-{ english: "broad", vietnamese: ["rộng"], type: "adj" },
-{ english: "broke", vietnamese: ["khánh kiệt, túng quẫn, bần cùng"], type: "verb" },
-{ english: "brother", vietnamese: ["anh, em trai"], type: "noun" },
-{ english: "brought", vietnamese: ["cầm lại, đem lại, mang lại, xách lại, đưa lại"], type: "verb" },
-{ english: "brown", vietnamese: ["nâu, màu nâu"], type: "adj" },
-{ english: "build", vietnamese: ["xây dựng"], type: "verb" },
-{ english: "burn", vietnamese: ["đốt, đốt cháy, thắp, nung, thiêu"], type: "verb" },
-{ english: "busy", vietnamese: ["bận, bận rộn"], type: "adj" },
-{ english: "but", vietnamese: ["nhưng"], type: "conjunction" },
-{ english: "came", vietnamese: ["khung chì để lắp kinh cửa"], type: "verb" },
-{ english: "camp", vietnamese: ["trại, chỗ cắm trại, cắm trại, hạ trại"], type: "noun, verb" },
-{ english: "can", vietnamese: ["có thể, nhà tù, nhà giam, bình, ca đựng"], type: "modal verb" },
-{ english: "capital", vietnamese: ["thủ đô, tiền vốn, chủ yếu, chính yếu, cơ bản"], type: "noun" },
-{ english: "captain", vietnamese: ["người cầm đầu, người chỉ huy, thủ lĩnh"], type: "noun" },
-{ english: "care", vietnamese: ["sự chăm sóc, chăm nom, chăm sóc"], type: "noun, verb" },
-{ english: "carry", vietnamese: ["mang, vác, khuân chở"], type: "verb" },
-{ english: "case", vietnamese: ["vỏ, ngăn, túi"], type: "noun" },
-{ english: "catch", vietnamese: ["bắt lấy, nắm lấy, tóm lấy, chộp lấy"], type: "verb" },
-{ english: "caught", vietnamese: ["sự bắt, sự nắm lấy, cái bắt, cái vồ, cái chộp"], type: "verb" },
-{ english: "cause", vietnamese: ["nguyên nhân, nguyên do, gây ra, gây nên"], type: "noun, verb" },
-{ english: "cell", vietnamese: ["ô, ngăn"], type: "noun" },
-{ english: "cent", vietnamese: ["đồng xu"], type: "noun" },
-{ english: "center", vietnamese: ["trung tâm"], type: "noun" },
-{ english: "century", vietnamese: ["thế kỷ"], type: "noun" },
-{ english: "certain", vietnamese: ["chắc chắn"], type: "adj" },
-{ english: "chair", vietnamese: ["ghế"], type: "noun" },
-{ english: "chance", vietnamese: ["sự may mắn"], type: "noun" },
-{ english: "change", vietnamese: ["thay đổi, sự thay đổi, sự biến đổi"], type: "verb" },
-{ english: "character", vietnamese: ["tính cách, đặc tính, nhân vật"], type: "noun" },
-{ english: "charge", vietnamese: ["nhiệm vụ, bổn phận, trách nhiệm, giao nhiệm vụ, giao việc"], type: "noun, verb" },
-{ english: "chart", vietnamese: ["đồ thị, biểu đồ, vẽ đồ thị, lập biểu đồ"], type: "noun, verb" },
-{ english: "check", vietnamese: ["kiểm tra, sự kiểm tra"], type: "verb" },
-{ english: "chick", vietnamese: ["gà con, chim con"], type: "noun" },
-{ english: "chief", vietnamese: ["trọng yếu, chính yếu, thủ lĩnh, lãnh tụ, người đứng đầu, xếp"], type: "adj" },
-{ english: "child", vietnamese: ["đứa bé, đứa trẻ"], type: "noun" },
-{ english: "children", vietnamese: ["đứa bé, đứa trẻ"], type: "noun" },
-{ english: "choose", vietnamese: ["chọn, lựa chọn"], type: "verb" },
-{ english: "chord", vietnamese: ["dây đàn hạc"], type: "noun" },
-{ english: "claim", vietnamese: ["đòi hỏi, yêu sách, sự đòi hỏi, sự yêu sách, sự thỉnh cầu"], type: "verb" },
-{ english: "clear", vietnamese: ["lau chùi, quét dọn"], type: "adj" },
-{ english: "climb", vietnamese: ["leo, trèo"], type: "verb" },
-{ english: "clock", vietnamese: ["đồng hồ"], type: "noun" },
-{ english: "close", vietnamese: ["đóng kín, chật chội, che đậy, đóng, khép, kết thúc, chấm dứt"], type: "adj, verb" },
-{ english: "clothe", vietnamese: ["mặc quần áo cho"], type: "verb" },
-{ english: "cloud", vietnamese: ["mây, đám mây"], type: "noun" },
-{ english: "coast", vietnamese: ["sự lao dốc, bờ biển"], type: "noun" },
-{ english: "coat", vietnamese: ["áo choàng"], type: "noun" },
-{ english: "collect", vietnamese: ["sưu tập, tập trung lại"], type: "verb" },
-{ english: "colony", vietnamese: ["thuộc địa"], type: "noun" },
-{ english: "column", vietnamese: ["cột, mục báo"], type: "noun" },
-{ english: "come", vietnamese: ["đến, tới, đi đến, đi tới"], type: "verb" },
-{ english: "common", vietnamese: ["công, công cộng, thông thường, phổ biến"], type: "adj" },
-{ english: "company", vietnamese: ["công ty"], type: "noun" },
-{ english: "compare", vietnamese: ["so sánh, đối chiếu"], type: "verb" },
-{ english: "complete", vietnamese: ["hoàn thành, xong"], type: "adj, verb" },
-{ english: "condition", vietnamese: ["điều kiện, tình cảnh, tình thế"], type: "noun" },
-{ english: "connect", vietnamese: ["kết nối, nối"], type: "verb" },
-{ english: "consider", vietnamese: ["cân nhắc, xem xét, để ý, quan tâm, lưu ý đến"], type: "verb" },
-{ english: "consonant", vietnamese: ["thuận tai, êm ái, du dương"], type: "adj" },
-{ english: "contain", vietnamese: ["bao hàm, chứa đựng, bao gồm"], type: "verb" },
-{ english: "continent", vietnamese: ["lục địa, đại lục"], type: "noun" },
-{ english: "control", vietnamese: ["sự điều khiển, quyền hành, quyền lực, quyền chỉ huy"], type: "noun, verb" },
-{ english: "cook", vietnamese: ["nấu ăn, người nấu ăn"], type: "verb" },
-{ english: "cool", vietnamese: ["mát mẻ, điềm tĩnh, làm mát"], type: "adj" },
-{ english: "copy", vietnamese: ["bản sao, bản chép lại, sự sao chép, sao chép, bắt chước"], type: "noun, verb" },
-{ english: "corn", vietnamese: ["hai chân"], type: "noun" },
-{ english: "corner", vietnamese: ["góc tường, nhà, phố"], type: "noun" },
-{ english: "correct", vietnamese: ["đúng, chính xác, sửa, sửa chữa"], type: "adj, verb" },
-{ english: "cost", vietnamese: ["giá, chi phí, trả giá, phải trả"], type: "noun, verb" },
-{ english: "cotton", vietnamese: ["bông, chỉ, sợi"], type: "noun" },
-{ english: "could", vietnamese: ["có thể, có khả năng"], type: "verb" },
-{ english: "count", vietnamese: ["đếm, tính"], type: "verb" },
-{ english: "country", vietnamese: ["nước, quốc gia, đất nước"], type: "noun" },
-{ english: "course", vietnamese: ["tiến trình, quá trình diễn tiến, sân chạy đua"], type: "noun" },
-{ english: "cover", vietnamese: ["bao bọc, che phủ, vỏ, vỏ bọc"], type: "verb" },
-{ english: "cow", vietnamese: ["con bò cái"], type: "noun" },
-{ english: "crease", vietnamese: ["nếp nhăn, nếp gấp"], type: "noun" },
-{ english: "create", vietnamese: ["sáng tạo, tạo nên"], type: "verb" },
-{ english: "crop", vietnamese: ["vụ mùa"], type: "noun" },
-{ english: "cross", vietnamese: ["cây Thánh Giá, nỗi thống khổ, sự băng qua, băng qua, vượt qua"], type: "noun, verb" },
-{ english: "crowd", vietnamese: ["đám đông"], type: "noun" },
-{ english: "current", vietnamese: ["hiện hành, phổ biến, hiện nay, dòng nước, luống gió"], type: "adj" },
-{ english: "danger", vietnamese: ["sự nguy hiểm, mối hiểm nghèo, nguy cơ, mối đe dọa"], type: "noun" },
-{ english: "day", vietnamese: ["ngày, ban ngày"], type: "noun" },
-{ english: "dead", vietnamese: ["chết, tắt"], type: "adj" },
-{ english: "deal", vietnamese: ["phân phát, phân phối, sự giao dịch, thỏa thuận mua bán"], type: "verb" },
-{ english: "dear", vietnamese: ["thân, thân yêu, thân mến, kính thưa, thưa"], type: "adj" },
-{ english: "death", vietnamese: ["sự chết, cái chết"], type: "noun" },
-{ english: "decide", vietnamese: ["quyết định, giải quyết, phân xử"], type: "verb" },
-{ english: "decimal", vietnamese: ["thập phân"], type: "adj" },
-{ english: "deep", vietnamese: ["sâu, khó lường, bí ẩn"], type: "adj" },
-{ english: "degree", vietnamese: ["mức độ, trình độ, bằng cấp, độ"], type: "noun" },
-{ english: "depend", vietnamese: ["phụ thuộc, tuỳ thuộc"], type: "verb" },
-{ english: "describe", vietnamese: ["diễn tả, miêu tả, mô tả"], type: "verb" },
-{ english: "desert", vietnamese: ["sa mạc, công lao, giá trị, rời bỏ, bỏ trốn"], type: "noun, verb" },
-{ english: "design", vietnamese: ["sự thiết kế, kế hoạch, đề cương, phác thảo, phác họa, thiết kế"], type: "noun, verb" },
-{ english: "determine", vietnamese: ["xác định, định rõ, quyết định"], type: "verb" },
-{ english: "develop", vietnamese: ["phát triển, mở rộng, trình bày, bày tỏ"], type: "verb" },
-{ english: "dictionary", vietnamese: ["từ điển"], type: "noun" },
-{ english: "differ", vietnamese: ["khác, không giống"], type: "verb" },
-{ english: "difficult", vietnamese: ["khó, khó khăn, gay go"], type: "adj" },
-{ english: "direct", vietnamese: ["trực tiếp, thẳng, thẳng thắn, gửi, viết cho ai, điều khiển"], type: "adj, verb" },
-{ english: "discuss", vietnamese: ["thảo luận, tranh luận"], type: "verb" },
-{ english: "distant", vietnamese: ["xa, cách, xa cách"], type: "adj" },
-{ english: "divide", vietnamese: ["chia, chia ra, phân ra"], type: "verb" },
-{ english: "division", vietnamese: ["sự chia, sự phân chia, sự phân loại"], type: "noun" },
-{ english: "do", vietnamese: ["làm"], type: "verb" },
-{ english: "does", vietnamese: ["hươu cái, hoãng cái, nai cái"], type: "verb" },
-{ english: "done", vietnamese: ["xong, hoàn thành, đã thực hiện"], type: "verb" },
-{ english: "door", vietnamese: ["cửa, cửa ra vào"], type: "noun" },
-{ english: "down", vietnamese: ["xuống"], type: "adverb" },
-{ english: "draw", vietnamese: ["vẽ, kéo"], type: "verb" },
-{ english: "dress", vietnamese: ["váy liền thân"], type: "noun, verb" },
-{ english: "drink", vietnamese: ["đồ uống, uống"], type: "noun, verb" },
-{ english: "drive", vietnamese: ["lái, đua xe, cuộc đua xe điều khiển"], type: "verb" },
-{ english: "drop", vietnamese: ["chảy nhỏ giọt, rơi, rớt, giọt nước, máu"], type: "verb" },
-{ english: "dry", vietnamese: ["khô, cạn, làm khô, sấy khô"], type: "adj, verb" },
-{ english: "duck", vietnamese: ["con vịt, vịt cái"], type: "noun" },
-{ english: "during", vietnamese: ["trong lúc, trong thời gian"], type: "preposition" },
-    ];
+/* ============================================
+   COPY TỪ ĐÂY ĐỂ THÊM TỪ VỰNG CỦA BẠN
+   ============================================ */
 
-    let quizWords = [];
-    let currentIndex = 0;
-    let correctAnswers = 0;
-    let incorrectAnswers = 0;
-
-    // Typing variables
-    let typingText = '';
-    let typingStartTime = null;
-    let typingTimer = null;
-    let totalTypingTime = 0;
-    let correctChars = 0;
-    let totalChars = 0;
-    let wordsTyped = 0;
-
-    // Word typing variables
-    let wordTypingWords = [];
-    let wordTypingIndex = 0;
-    let wordTypingStartTime = null;
-    let wordTypingTimer = null;
-    let wordTotalTime = 0;
-    let wordCorrectChars = 0;
-    let wordTotalChars = 0;
-
-    function normalizeText(text) {
-      return text.toLowerCase().trim().replace(/\s+/g, ' ');
-    }
-
-    function goHome() {
-      document.getElementById('homePage').style.display = 'block';
-      document.getElementById('quizPage').style.display = 'none';
-      document.getElementById('dictionaryPage').style.display = 'none';
-      document.getElementById('resultPage').style.display = 'none';
-      document.getElementById('typingPage').style.display = 'none';
-      document.getElementById('wordTypingPage').style.display = 'none';
-      
-      // Reset typing nếu đang chạy
-      if (typingTimer) {
-        clearInterval(typingTimer);
-        typingTimer = null;
-      }
-      
-      if (wordTypingTimer) {
-        clearInterval(wordTypingTimer);
-        wordTypingTimer = null;
-      }
-    }
-
-    function startQuiz() {
-      quizWords = [...vocabulary].sort(() => Math.random() - 0.5);
-      currentIndex = 0;
-      correctAnswers = 0;
-      incorrectAnswers = 0;
-
-      document.getElementById('homePage').style.display = 'none';
-      document.getElementById('quizPage').style.display = 'block';
-      
-      displayWord();
-    }
-
-    function displayWord() {
-      const word = quizWords[currentIndex];
-      document.getElementById('englishWord').textContent = word.english.toUpperCase();
-      document.getElementById('wordType').textContent = `(${word.type})`;
-      document.getElementById('progressInfo').textContent = `Câu ${currentIndex + 1}/50`;
-      document.getElementById('answerInput').value = '';
-      document.getElementById('feedback').classList.remove('show');
-      document.getElementById('answerInput').focus();
-    }
-
-    function checkAnswer() {
-      const userAnswer = normalizeText(document.getElementById('answerInput').value);
-      const currentWord = quizWords[currentIndex];
-      const feedback = document.getElementById('feedback');
-      
-      if (!userAnswer) {
-        alert('Vui lòng nhập câu trả lời!');
-        return;
-      }
-
-      const isCorrect = currentWord.vietnamese.some(answer => 
-        normalizeText(answer) === userAnswer
-      );
-
-      if (isCorrect) {
-        correctAnswers++;
-        feedback.className = 'feedback correct show';
-        feedback.innerHTML = `✓ Đúng! Nghĩa: <strong>${currentWord.vietnamese.join(', ')}</strong>`;
-      } else {
-        incorrectAnswers++;
-        feedback.className = 'feedback incorrect show';
-        feedback.innerHTML = `✗ Sai! Đáp án đúng: <strong>${currentWord.vietnamese.join(', ')}</strong>`;
-      }
-
-      setTimeout(() => {
-        currentIndex++;
-        if (currentIndex >= 50) {
-          showResult();
-        } else {
-          displayWord();
-        }
-      }, 2000);
-    }
-
-    function skipWord() {
-      const currentWord = quizWords[currentIndex];
-      const feedback = document.getElementById('feedback');
-      
-      incorrectAnswers++;
-      feedback.className = 'feedback incorrect show';
-      feedback.innerHTML =       ` ''    : <strong>${currentWord.vietnamese.join(', ')}</strong>`;
-
-      setTimeout(() => {
-        currentIndex++;
-        if (currentIndex >= 50) {
-          showResult();
-        } else {
-          displayWord();
-        }
-      }, 2000);
-    }
-
-    function showResult() {
-      const score = Math.round((correctAnswers / 50) * 100);
-      
-      document.getElementById('quizPage').style.display = 'none';
-      document.getElementById('resultPage').style.display = 'block';
-      
-      document.getElementById('scoreNumber').textContent = score;
-      document.getElementById('scoreLabel').textContent = 'điểm';
-      document.getElementById('correctCount').textContent = correctAnswers;
-      document.getElementById('correctLabel').textContent = 'Đúng';
-      document.getElementById('incorrectCount').textContent = incorrectAnswers;
-      document.getElementById('incorrectLabel').textContent = 'Sai';
-    }
-
-    function showDictionary() {
-      document.getElementById('homePage').style.display = 'none';
-      document.getElementById('dictionaryPage').style.display = 'block';
-      
-      displayDictionary();
-    }
-
-    function displayDictionary(searchTerm = '') {
-      const wordList = document.getElementById('wordList');
-      const filtered = vocabulary.filter(word => 
-        word.english.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        word.vietnamese.some(v => v.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-
-      wordList.innerHTML = filtered.map(word => `
-        <div class="word-item">
-          <div class="word-item-english">${word.english}</div>
-          <div class="word-item-type">${word.type}</div>
-          <div class="word-item-vietnamese">${word.vietnamese.join(', ')}</div>
-        </div>
-      `).join('');
-    }
-
-    function searchWord() {
-      const searchTerm = document.getElementById('searchInput').value;
-      displayDictionary(searchTerm);
-    }
-
-    // Typing Game Functions
-    function startTyping() {
-      // Tạo đoạn văn 100 từ ngẫu nhiên
-      const shuffled = [...vocabulary].sort(() => Math.random() - 0.5);
-      typingText = shuffled.slice(0, 100).map(w => w.english).join(' ');
-      
-      typingStartTime = null;
-      totalTypingTime = 0;
-      correctChars = 0;
-      totalChars = 0;
-      wordsTyped = 0;
-
-      document.getElementById('homePage').style.display = 'none';
-      document.getElementById('typingPage').style.display = 'block';
-      
-      displayTypingText();
-      document.getElementById('typingInput').focus();
-    }
-
-    function displayTypingText() {
-      const targetDiv = document.getElementById('typingTarget');
-      targetDiv.textContent = typingText;
-      document.getElementById('typingProgress').textContent = 'Đã gõ: 0/100 từ';
-      document.getElementById('typingInput').value = '';
-      document.getElementById('typingInput').classList.remove('error');
-    }
-
-    function updateTypingDisplay() {
-      const input = document.getElementById('typingInput').value;
-      const targetDiv = document.getElementById('typingTarget');
-      
-      let html = '';
-      let hasError = false;
-      
-      for (let i = 0; i < typingText.length; i++) {
-        if (i < input.length) {
-          if (input[i] === typingText[i]) {
-            html += `<span class="char-correct">${typingText[i]}</span>`;
-            if (i === input.length - 1) {
-              totalChars++;
-              correctChars++;
-            }
-          } else {
-            html += `<span class="char-incorrect">${typingText[i]}</span>`;
-            hasError = true;
-            if (i === input.length - 1) {
-              totalChars++;
-            }
-          }
-        } else if (i === input.length) {
-          html += `<span class="char-current">${typingText[i]}</span>`;
-        } else {
-          html += typingText[i];
-        }
-      }
-      
-      targetDiv.innerHTML = html;
-      
-      // Đổi màu input nếu sai
-      if (hasError) {
-        document.getElementById('typingInput').classList.add('error');
-      } else {
-        document.getElementById('typingInput').classList.remove('error');
-      }
-      
-      // Đếm số từ đã gõ
-      wordsTyped = input.trim().split(/\s+/).length;
-      if (input.trim() === '') wordsTyped = 0;
-      document.getElementById('typingProgress').textContent = `Đã gõ: ${wordsTyped}/100 từ`;
-      
-      // Kiểm tra hoàn thành
-      if (input === typingText) {
-        showTypingResult();
-      }
-    }
-
-    function startTimer() {
-      if (!typingStartTime) {
-        typingStartTime = Date.now();
-        typingTimer = setInterval(updateTimer, 100);
-      }
-    }
-
-    function updateTimer() {
-      const elapsed = (Date.now() - typingStartTime) / 1000;
-      totalTypingTime = elapsed;
-      
-      const minutes = Math.floor(elapsed / 60);
-      const seconds = Math.floor(elapsed % 60);
-      document.getElementById('timer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-      
-      // Tính WPM
-      const wpm = Math.round((wordsTyped / elapsed) * 60);
-      document.getElementById('wpm').textContent = wpm || 0;
-      
-      // Tính accuracy
-      const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
-      document.getElementById('accuracy').textContent = accuracy;
-    }
-
-    function showTypingResult() {
-      clearInterval(typingTimer);
-      
-      const minutes = (totalTypingTime / 60).toFixed(2);
-      const wpm = Math.round((100 / totalTypingTime) * 60);
-      const accuracy = Math.round((correctChars / totalChars) * 100);
-      
-      document.getElementById('typingPage').style.display = 'none';
-      document.getElementById('resultPage').style.display = 'block';
-      
-      document.getElementById('scoreNumber').textContent = minutes;
-      document.getElementById('scoreLabel').textContent = 'phút';
-      document.getElementById('correctCount').textContent = wpm;
-      document.getElementById('correctLabel').textContent = 'WPM';
-      document.getElementById('incorrectCount').textContent = accuracy + '%';
-      document.getElementById('incorrectLabel').textContent = 'Chính xác';
-    }
-
-    // Word Typing Functions
-    function startWordTyping() {
-      wordTypingWords = [...vocabulary].sort(() => Math.random() - 0.5).slice(0, 50);
-      wordTypingIndex = 0;
-      wordTypingStartTime = null;
-      wordTotalTime = 0;
-      wordCorrectChars = 0;
-      wordTotalChars = 0;
-
-      document.getElementById('homePage').style.display = 'none';
-      document.getElementById('wordTypingPage').style.display = 'block';
-      
-      displayWordTyping();
-      document.getElementById('wordTypingInput').focus();
-    }
-
-    function displayWordTyping() {
-      const word = wordTypingWords[wordTypingIndex];
-      const targetDiv = document.getElementById('wordTypingTarget');
-      targetDiv.innerHTML = `<div>${word.english}</div>`;
-      document.getElementById('wordTypingProgress').textContent = `Từ ${wordTypingIndex + 1}/50`;
-      document.getElementById('wordTypingInput').value = '';
-      document.getElementById('wordTypingInput').classList.remove('error');
-    }
-
-    function updateWordTypingDisplay() {
-      const word = wordTypingWords[wordTypingIndex];
-      const target = word.english;
-      const input = document.getElementById('wordTypingInput').value;
-      const targetDiv = document.getElementById('wordTypingTarget');
-      
-      let html = '<div>';
-      let hasError = false;
-      
-      for (let i = 0; i < target.length; i++) {
-        if (i < input.length) {
-          if (input[i] === target[i]) {
-            html += `<span class="char-correct">${target[i]}</span>`;
-          } else {
-            html += `<span class="char-incorrect">${target[i]}</span>`;
-            hasError = true;
-          }
-        } else if (i === input.length) {
-          html += `<span class="char-current">${target[i]}</span>`;
-        } else {
-          html += target[i];
-        }
-      }
-      
-      html += '</div>';
-      targetDiv.innerHTML = html;
-      
-      // Đổi màu input nếu sai
-      if (hasError) {
-        document.getElementById('wordTypingInput').classList.add('error');
-      } else {
-        document.getElementById('wordTypingInput').classList.remove('error');
-      }
-      
-      // Kiểm tra hoàn thành từ
-      if (input === target) {
-        // Hiển thị nghĩa
-        targetDiv.innerHTML = `
-          <div style="font-size: 2rem; color: #28a745;">${target}</div>
-          <div style="font-size: 1.2rem; color: #667eea; margin-top: 10px; font-weight: normal; font-style: italic;">${word.vietnamese.join(', ')}</div>
-        `;
-        
-        // Tính accuracy
-        for (let i = 0; i < input.length; i++) {
-          wordTotalChars++;
-          if (input[i] === target[i]) wordCorrectChars++;
-        }
-        
-        wordTypingIndex++;
-        
-        // Chờ 1.5 giây rồi chuyển từ tiếp theo
-        setTimeout(() => {
-          if (wordTypingIndex >= 50) {
-            showWordTypingResult();
-          } else {
-            displayWordTyping();
-          }
-        }, 1500);
-      }
-    }
-
-    function startWordTimer() {
-      if (!wordTypingStartTime) {
-        wordTypingStartTime = Date.now();
-        wordTypingTimer = setInterval(updateWordTimer, 100);
-      }
-    }
-
-    function updateWordTimer() {
-      const elapsed = (Date.now() - wordTypingStartTime) / 1000;
-      wordTotalTime = elapsed;
-      
-      const minutes = Math.floor(elapsed / 60);
-      const seconds = Math.floor(elapsed % 60);
-      document.getElementById('wordTimer').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-      
-      // Tính WPM
-      const wpm = Math.round((wordTypingIndex / elapsed) * 60);
-      document.getElementById('wordWpm').textContent = wpm || 0;
-      
-      // Tính accuracy
-      const accuracy = wordTotalChars > 0 ? Math.round((wordCorrectChars / wordTotalChars) * 100) : 100;
-      document.getElementById('wordAccuracy').textContent = accuracy;
-    }
-
-    function showWordTypingResult() {
-      clearInterval(wordTypingTimer);
-      
-      const minutes = (wordTotalTime / 60).toFixed(2);
-      const wpm = Math.round((50 / wordTotalTime) * 60);
-      const accuracy = Math.round((wordCorrectChars / wordTotalChars) * 100);
-      
-      document.getElementById('wordTypingPage').style.display = 'none';
-      document.getElementById('resultPage').style.display = 'block';
-      
-      document.getElementById('scoreNumber').textContent = minutes;
-      document.getElementById('scoreLabel').textContent = 'phút';
-      document.getElementById('correctCount').textContent = wpm;
-      document.getElementById('correctLabel').textContent = 'WPM';
-      document.getElementById('incorrectCount').textContent = accuracy + '%';
-      document.getElementById('incorrectLabel').textContent = 'Chính xác';
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-      const typingInput = document.getElementById('typingInput');
-      if (typingInput) {
-        typingInput.addEventListener('input', function() {
-          startTimer();
-          updateTypingDisplay();
-        });
-      }
-      
-      const wordTypingInput = document.getElementById('wordTypingInput');
-      if (wordTypingInput) {
-        wordTypingInput.addEventListener('input', function() {
-          startWordTimer();
-          updateWordTypingDisplay();
-        });
-      }
-      
-      const answerInput = document.getElementById('answerInput');
-      if (answerInput) {
-        answerInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            checkAnswer();
-          }
-        });
-      }
-    });
-  </script>
-</body>
-</html>
+const vocabulary = [
+  { english: "able", vietnamese: ["có năng lực, có tài"], type: "adj" },
+  { english: "abandon", vietnamese: ["bỏ, từ bỏ"], type: "verb" },
+  { english: "above", vietnamese: ["ở trên, lên trên"], type: "adverb" },
+  { english: "act", vietnamese: ["hành động, hành vi, cử chỉ, đối xử"], type: "noun, verb" },
+  { english: "afraid", vietnamese: ["sợ, sợ hãi, hoảng sợ"], type: "adj" },
+  { english: "again", vietnamese: ["lại, nữa, lần nữa"], type: "adverb" },
+  { english: "against", vietnamese: ["chống lại, phản đối"], type: "preposition" },
+  { english: "ago", vietnamese: ["trước đây"], type: "adverb" },
+  { english: "agree", vietnamese: ["đồng ý, tán thành"], type: "verb" },
+  { english: "allow", vietnamese: ["cho phép, để cho"], type: "verb" },
+  { english: "also", vietnamese: ["cũng, cũng vậy, cũng thế"], type: "adverb" },
+  { english: "among", vietnamese: ["giữa, ở giữa"], type: "preposition" },
+  { english: "an", vietnamese: ["nếu"], type: "article" },
+  { english: "anger", vietnamese: ["sự tức giận, sự giận dữ"], type: "noun" },
+  { english: "animal", vietnamese: ["động vật, thú vật"], type: "noun" },
+  { english: "answer", vietnamese: ["sự trả lời, trả lời"], type: "noun, verb" },
+  { english: "any", vietnamese: ["một người, vật nào đó, bất cứ, một chút nào, tí nào"], type: "determiner" },
+  { english
